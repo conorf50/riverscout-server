@@ -1,0 +1,29 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = git@gitlab.com:riverscout/api-backend.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[branch "change-mongo-url"]
+	remote = origin
+	merge = refs/heads/change-mongo-url
+[branch "remove-node-modules"]
+	remote = origin
+	merge = refs/heads/remove-node-modules
+[branch "create-new-schema"]
+	remote = origin
+	merge = refs/heads/create-new-schema
+[branch "change-db-url"]
+	remote = origin
+	merge = refs/heads/change-db-url
+[branch "change-db-schema"]
+	remote = origin
+	merge = refs/heads/change-db-schema
+[branch "modify-schema"]
+	remote = origin
+	merge = refs/heads/modify-schema

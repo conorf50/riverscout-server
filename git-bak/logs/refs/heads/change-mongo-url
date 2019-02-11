@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 ba4c687822d9ba38fa73fd98b35c1aede655343b vagrant <vagrant@rs-dev> 1548623583 +0000	branch: Created from HEAD
+ba4c687822d9ba38fa73fd98b35c1aede655343b 8e7ddfde9c28ab0ac1c87b92f622874b6eea7b9a cfarrell <conorf50@gmail.com> 1548623646 +0000	commit: changed mongdb connect url
+8e7ddfde9c28ab0ac1c87b92f622874b6eea7b9a 3ee6033ef0390af327a5dea9714957c28b92fa6b cfarrell <conorf50@gmail.com> 1548623681 +0000	commit: remove samba config
+3ee6033ef0390af327a5dea9714957c28b92fa6b 582b6d01f13c2867eb4367964f238469043748c1 cfarrell <conorf50@gmail.com> 1548624514 +0000	commit: updated gitignore
+582b6d01f13c2867eb4367964f238469043748c1 f8fd7d7499067dd4de08f84b4ea71ffa1149d968 cfarrell <conorf50@gmail.com> 1548790184 +0000	commit: Added comments
