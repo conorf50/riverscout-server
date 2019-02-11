@@ -11,7 +11,7 @@ var Schema = mongoose.Schema;
 
 // This collection contains the latitude, longitude and name of each of the groups
 const DeviceGroupSchema = new Schema({
-    _id: mongoose.Schema.Types.ObjectId(), // internal ID that Mongo uses for each document 
+    //_id: mongoose.Schema.Types.ObjectId(), // internal ID that Mongo uses for each document 
     groupLat: mongoose.Schema.Types.Decimal128, // group latitude
     groupLong: mongoose.Schema.Types.Decimal128, // group longitude
     groupName: String   // display name for group

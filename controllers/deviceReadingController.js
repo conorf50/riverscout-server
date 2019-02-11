@@ -16,7 +16,7 @@ function addSensorReading(req, res) {
      var tsString = input.undefined.value.timestamp
      var tsInt = parseInt(tsString, 10)
   
-     var momentTs  = new moment.unix(tsInt).utc(); // important since we are recieving UTC unix timstamps from Sigfox
+     var momentTs  = new moment.unix(tsInt); // important since we are recieving UTC unix timstamps from Sigfox
      console.log("integer timestamp = " + tsInt)
      console.log("converted moment = " + momentTs)
     // // save the data

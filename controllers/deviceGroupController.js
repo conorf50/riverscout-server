@@ -1,6 +1,8 @@
 'use strict'
-var DAO = require('../lib/dao');
+var groupDAO = require('../lib/groupDAO');
 //var Promise = require('bluebird');
+
+console.log(require('../lib/groupDAO'))
 
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
@@ -10,9 +12,9 @@ function addDeviceGroup(req, res) {
     let groupName = input.undefined.value.groupName
     let groupLatitude = input.undefined.value.groupLat
     let groupLongitude = input.undefined.value.groupLong
-    console.log(groupLatitude)
+    console.log(typeof(groupLatitude))
 
-
+    groupDAO.createDeviceGroup(groupName, groupLatitude, groupLongitude)
     // these are template strings
     // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
     res.json(`Group: '${groupName}' created with lat ${groupLatitude} and long ${groupLongitude}`);
