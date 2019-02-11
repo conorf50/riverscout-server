@@ -1,5 +1,0 @@
-0000000000000000000000000000000000000000 0f1d28df4728b76e63b266212a9e0db8f7b5441c cfarrell <conorf50@gmail.com> 1548791396 +0000	branch: Created from HEAD
-0f1d28df4728b76e63b266212a9e0db8f7b5441c 43b373918af76e8c5b7403ffb880932cf71acbad cfarrell <conorf50@gmail.com> 1548791632 +0000	commit: Move schema to new folder
-43b373918af76e8c5b7403ffb880932cf71acbad beec9bdc27d99e8d4e3a16d0e968c07ac1d51e2e cfarrell <conorf50@gmail.com> 1548848312 +0000	commit: Added new schema
-beec9bdc27d99e8d4e3a16d0e968c07ac1d51e2e 129157c72623af590eab36aadaf96acdfd7f2c07 cfarrell <conorf50@gmail.com> 1548856072 +0000	commit: Removed old files
-129157c72623af590eab36aadaf96acdfd7f2c07 fcf4662bfc51ca15e0eb65af992d75ba746d5df7 cfarrell <conorf50@gmail.com> 1548856088 +0000	commit: changed schema

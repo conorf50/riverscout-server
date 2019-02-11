@@ -1,7 +1,0 @@
-0000000000000000000000000000000000000000 0276b03cfa9c87984673cefa1b8713de1742225d cfarrell <conorf50@gmail.com> 1549295149 +0000	branch: Created from HEAD
-0276b03cfa9c87984673cefa1b8713de1742225d 1cbdda3e8220aef85d8571178a7904d79114cb98 cfarrell <conorf50@gmail.com> 1549295158 +0000	commit: added comments
-1cbdda3e8220aef85d8571178a7904d79114cb98 2bb0eecc67d491b185a0587c21cc7b4ffc650539 cfarrell <conorf50@gmail.com> 1549311631 +0000	commit: added nodemon to NPM dependencies
-2bb0eecc67d491b185a0587c21cc7b4ffc650539 61363b42dc6a289ce564151e3328f251c47d7fd6 cfarrell <conorf50@gmail.com> 1549320621 +0000	commit: re-org schema files
-61363b42dc6a289ce564151e3328f251c47d7fd6 433b3c7fe1577c65e10de71c2678888eabb8646c cfarrell <conorf50@gmail.com> 1549324436 +0000	commit: changed schema file
-433b3c7fe1577c65e10de71c2678888eabb8646c 0309b77ef55340610a6c216f9d936b65df158e78 cfarrell <conorf50@gmail.com> 1549377262 +0000	commit: added new route to YAML
-0309b77ef55340610a6c216f9d936b65df158e78 22b8c82c6972e0d69e4fafcc95749e7e7c5dbbb1 cfarrell <conorf50@gmail.com> 1549547963 +0000	commit: changes made to Swagger YAML file and both schemas
