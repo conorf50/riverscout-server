@@ -9,7 +9,7 @@ paths:
       x-swagger-router-controller: deviceData
       operationId: getDeviceData
       tags:
-        - /deviceData
+        - Device
       description: Returns data for the specified device within the times specified
       parameters:
         - name: deviceID
@@ -47,7 +47,7 @@ paths:
     post:
       x-swagger-router-controller: deviceReadingController
       tags:
-        - /addDeviceReading
+        - Device Reading
       description: Adds a reading for a device
       operationId: addSensorReading
       responses:
@@ -78,7 +78,7 @@ paths:
     post:
       x-swagger-router-controller: deviceGroupController
       tags:
-        - /addDeviceGroup
+        - Device Group
       description: Adds a group for devices
       operationId: addDeviceGroup
       responses:
@@ -106,7 +106,7 @@ paths:
     post:
       x-swagger-router-controller: deviceController
       tags:
-        - /addDevice
+        - Device
       description: Adds a new device (Sigfox/NBIoT)
       operationId: addNewDevice
       responses:
