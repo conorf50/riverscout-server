@@ -1,5 +1,5 @@
 'use strict'
-var DAO = require('../lib/dao');
+var deviceDAO = require('../lib/deviceDAO');
 //var Promise = require('bluebird');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
@@ -9,7 +9,7 @@ function addNewDevice(req, res) {
     var input = req.swagger.params
     console.log(input.undefined.value)
     // console.log(input.undefined.value.timestamp)
-
+    deviceDAO.saveDeviceData(input.undefined.value)
     res.json("Data added to database");
   }
   

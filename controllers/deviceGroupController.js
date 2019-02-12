@@ -12,7 +12,6 @@ function addDeviceGroup(req, res) {
     let groupName = input.undefined.value.groupName
     let groupLatitude = input.undefined.value.groupLat
     let groupLongitude = input.undefined.value.groupLong
-    console.log(typeof(groupLatitude))
 
     groupDAO.createDeviceGroup(groupName, groupLatitude, groupLongitude)
     // these are template strings

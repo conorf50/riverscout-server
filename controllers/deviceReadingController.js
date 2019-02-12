@@ -20,7 +20,7 @@ function addSensorReading(req, res) {
      console.log("integer timestamp = " + tsInt)
      console.log("converted moment = " + momentTs)
     // // save the data
-   // DAO.saveDeviceData(device, momentTs, data)
+    DAO.saveDeviceData(device, momentTs, data)
     // this sends back a JSON response which is a single string
     res.json("Data added to database");
   }
