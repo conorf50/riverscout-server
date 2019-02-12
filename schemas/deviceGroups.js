@@ -12,18 +12,19 @@ var Schema = mongoose.Schema;
 // This collection contains the latitude, longitude and name of each of the groups
 const DeviceGroupSchema = new Schema({
     //_id: mongoose.Schema.Types.ObjectId(), // internal ID that Mongo uses for each document 
-    groupLat: mongoose.Schema.Types.Decimal128, // group latitude
-    groupLong: mongoose.Schema.Types.Decimal128, // group longitude
-    groupName: String   // display name for group
+    groupLat: {type: mongoose.Schema.Types.Decimal128, required:true},// group latitude
+    groupLong: {type: mongoose.Schema.Types.Decimal128, required:true}, // group longitude
+    groupName: {type: String, required:true}   // display name for group
     // add reference to a LUT for country codes here .... 
   });
   
 // Compile model from schema
 var DeviceGroupModel = mongoose.model('groupModel', DeviceGroupSchema);
 
+
+
 // Export the entire schema to access it from other files
 // so we can access it with Schema.<schema name> once it has been required
-
 module.exports = {
       deviceGroupSchema : DeviceGroupModel
     };
