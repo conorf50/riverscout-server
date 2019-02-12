@@ -13,7 +13,28 @@ function addNewDevice(req, res) {
     res.json("Data added to database");
   }
   
+
+
+  function getDeviceInfo(req, res, next) {
+
+    var deviceID = req.swagger.params.deviceID.value
+    
+    // fetch the data using a call to the DAO and then handle the response using a Promise
+    // see the following question for this solution: https://stackoverflow.com/questions/41199718/return-promises-instead-of-res-jsondata-in-node-js 
+    deviceDAO.getDeviceData(deviceID)
+    .then(function(data) {
+      res.send(data)
+    })
+    .catch(function(err) {
+      Promise.reject(err);
+      res.json(err)
+    });
+    // this sends back a JSON response which is a single string
+  }
+  
+  
   module.exports = {
-      addNewDevice: addNewDevice
+      addNewDevice: addNewDevice,
+      getDeviceInfo: getDeviceInfo
     };
   

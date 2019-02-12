@@ -4,29 +4,17 @@ info:
   description: OpenAPI v3 powered API for Riverscout
   version: '0.3'
 paths:
-  /deviceData:
+  /deviceInfo:
     get:
-      x-swagger-router-controller: deviceData
-      operationId: getDeviceData
+      x-swagger-router-controller: deviceController
+      operationId: getDeviceInfo
       tags:
         - Device
       description: Returns data for the specified device within the times specified
       parameters:
         - name: deviceID
           in: query
-          description: The ID of the device to get data for
-          required: true
-          schema:
-            type: string
-        - name: timestampGt
-          in: query
-          description: Return results greater than this time
-          required: true
-          schema:
-            type: string
-        - name: timestampLt
-          in: query
-          description: Return results less than this time
+          description: The database ID of the device to get data for
           required: true
           schema:
             type: string
