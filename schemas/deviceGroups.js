@@ -14,7 +14,8 @@ const DeviceGroupSchema = new Schema({
     //_id: mongoose.Schema.Types.ObjectId(), // internal ID that Mongo uses for each document 
     groupLat: {type: mongoose.Schema.Types.Decimal128, required:true},// group latitude
     groupLong: {type: mongoose.Schema.Types.Decimal128, required:true}, // group longitude
-    groupName: {type: String, required:true}   // display name for group
+    groupName: {type: String, required:true},
+    countryCode: {type: String, required: true}   // display name for group
     // add reference to a LUT for country codes here .... 
   });
   

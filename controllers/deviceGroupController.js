@@ -20,7 +20,25 @@ function addDeviceGroup(req, res) {
 
   }
   
+
+  function getDeviceGroups(req, res) {
+    // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
+    let input = req.swagger.params
+    
+    let countryCode = input.countryCode.value
+    groupDAO.findDeviceGroups(countryCode)
+    .then(result => {
+      res.send(result)
+    })
+    // these are template strings
+    // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
+    //res.json(`Found all groups for country code: `);
+
+  }
+
+
   module.exports = {
-    addDeviceGroup: addDeviceGroup
+    addDeviceGroup: addDeviceGroup,
+    getDeviceGroups: getDeviceGroups
     };
   

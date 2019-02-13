@@ -30,7 +30,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'   
+                $ref: '#/components/schemas/Error'
+  /deviceGroups:
+    get:
+      x-swagger-router-controller: deviceGroupController
+      operationId: getDeviceGroups
+      tags:
+        - Device Group
+      description: Returns all the device groups for the specified country code
+      parameters:
+        - name: countryCode
+          in: query
+          description: Return all groups in this country
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'                   
   /addDeviceReading:
     post:
       x-swagger-router-controller: deviceReadingController
