@@ -4,29 +4,17 @@ info:
   description: OpenAPI v3 powered API for Riverscout
   version: '0.3'
 paths:
-  /deviceData:
+  /deviceInfo:
     get:
-      x-swagger-router-controller: deviceData
-      operationId: getDeviceData
+      x-swagger-router-controller: deviceController
+      operationId: getDeviceInfo
       tags:
         - Device
       description: Returns data for the specified device within the times specified
       parameters:
         - name: deviceID
           in: query
-          description: The ID of the device to get data for
-          required: true
-          schema:
-            type: string
-        - name: timestampGt
-          in: query
-          description: Return results greater than this time
-          required: true
-          schema:
-            type: string
-        - name: timestampLt
-          in: query
-          description: Return results less than this time
+          description: The database ID of the device to get data for
           required: true
           schema:
             type: string
@@ -42,7 +30,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'   
+                $ref: '#/components/schemas/Error'
+  /deviceGroups:
+    get:
+      x-swagger-router-controller: deviceGroupController
+      operationId: getDeviceGroups
+      tags:
+        - Device Group
+      description: Returns all the device groups for the specified country code
+      parameters:
+        - name: countryCode
+          in: query
+          description: Return all groups in this country
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'                   
   /addDeviceReading:
     post:
       x-swagger-router-controller: deviceReadingController
