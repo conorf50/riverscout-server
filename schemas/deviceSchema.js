@@ -25,7 +25,7 @@ const DeviceSchema = new Schema({
 
     reportingFreq: Number, // how often (in minutes) the device is expected to send up data
     downlinkEnabled: Boolean, // can the device recieve data
-    groupID : {type: mongoose.Types.ObjectId, ref: 'groupModel', required : true}, // array of references to 'groupModel' in 'deviceGroups.js'
+    groupIDS : [{type: mongoose.Schema.Types.ObjectId, ref: 'groupModel', required : true}], // array of references to 'groupModel' in 'deviceGroups.js'
     activeStatus: Boolean, // is the device currently active?
     deviceHistory: {     // array containing all the history associated with a device. Empty on creation, not specified through add device API
       timestamp: Date,
