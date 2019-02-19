@@ -203,9 +203,11 @@ paths:
                 reportingFreq:
                   type: string
                   description: "how often (in minutes) the device is expected to send up data"  
-                groupID:
-                  type: string
-                  description: "ID of the group this device is in"
+                groupIDS:
+                  type: array
+                  items:
+                    type: string
+                  description: "An array of the group IDs this device is in"
                 activeStatus:
                   type: boolean
                   description: "Device active status"
