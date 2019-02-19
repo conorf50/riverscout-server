@@ -87,7 +87,38 @@ paths:
                   type: string
                   description: UNIX timestamp coming from the Sigfox backend
         description: >-
-          Adds a measurement for a specific device                   
+          Adds a measurement for a specific device    
+  /addCountry:
+    post:
+      x-swagger-router-controller: countryCodeController
+      tags:
+        - Country Codes
+      description: Adds a new 'country' with an ID and a country code
+      operationId: addNewCountry
+      responses:
+        '201':
+          description: Added country
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - countryName
+                - code
+                - countryID
+              properties:
+                countryName:
+                  type: string
+                  description: The name of this country eg 'Ireland'
+                countryID:
+                  type: number
+                  description: A numeric ID for a country. Must be unique 
+                code:
+                  type: string
+                  description: Two character code eg; 'IE', 'FR', 'DE'
+        description: >-
+          Adds a measurement for a specific device             
   /addDeviceGroup:
     post:
       x-swagger-router-controller: deviceGroupController
