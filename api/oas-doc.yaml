@@ -10,7 +10,7 @@ paths:
       operationId: getDeviceInfo
       tags:
         - Device
-      description: Returns data for the specified device within the times specified
+      description: Returns data for the specified device like it's location and group
       parameters:
         - name: deviceID
           in: query
