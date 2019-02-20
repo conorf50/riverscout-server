@@ -7,9 +7,7 @@
 var app = require('../app'),
   chai = require('chai'),
   request = require('supertest');
-
 var expect = chai.expect;
-
 
 describe('First Integration Test', function() {
     describe('#GET / deviceGroups', function() { 
@@ -22,3 +20,4 @@ describe('First Integration Test', function() {
       });
     });
   });
+

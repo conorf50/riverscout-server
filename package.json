@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "nodemon app.js",
-    "test" : "NODE_ENV=test mocha --timeout 10000"
+    "test": "NODE_ENV=test mocha --exit"
   },
   "keywords": [
     "Riverscout"
