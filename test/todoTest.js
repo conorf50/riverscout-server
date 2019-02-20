@@ -11,7 +11,14 @@ var app = require('../app'),
 var expect = chai.expect;
 
 
-
-describe('Todos list API Integration Tests', function() {
-
-});
+describe('First Integration Test', function() {
+    describe('#GET / deviceGroups', function() { 
+      it('should get all device groups for the country IE', function(done) { 
+        request(app) .get('/deviceGroups&countryCode="IE"')
+          .end(function(err, res) { 
+            expect(res.statusCode).to.equal(200); 
+            done(); 
+          }); 
+      });
+    });
+  });
