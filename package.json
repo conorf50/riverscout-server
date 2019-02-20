@@ -2,10 +2,10 @@
   "name": "riverscout-admin-api",
   "version": "1.0.0",
   "description": "Private admin API for managing the Riverscout network",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "keywords": [
     "Riverscout"
