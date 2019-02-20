@@ -69,4 +69,5 @@ app.get('/info', function(req, res) {
     //name: oasDoc.info.title
   });
 });
+module.exports = app; // do this so we can point out test suite at this app
 /// END OF GENERATED CODE
