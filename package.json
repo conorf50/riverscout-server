@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test" : "mocha"
   },
   "keywords": [
     "Riverscout"
