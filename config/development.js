@@ -24,5 +24,5 @@ module.exports = {
   env: 'development',
   db : uri+port+dbPath+dbName,
   //db: 'mongodb://riverscout:riverscout@10.10.1.10/riverscout',
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 4000,
 };
