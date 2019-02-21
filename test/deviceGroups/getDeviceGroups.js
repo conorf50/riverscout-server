@@ -4,7 +4,7 @@
 
 'use strict';
 
-var app = require('../app'),
+var app = require('../../app'),
   chai = require('chai'),
   request = require('supertest');
 var expect = chai.expect;
