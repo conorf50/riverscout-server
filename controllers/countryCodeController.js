@@ -17,7 +17,7 @@ function addNewCountry(req, res) {
     .then(function(x) {
       //res.json(x)  // just respond with this 
       res.json({
-        "message" : "Created new country",
+        "message" : "Created new / updated existing country",
         "countryName": x.countryName,
         "countryCode" : x.code,
         "countryID" : x.countryID,

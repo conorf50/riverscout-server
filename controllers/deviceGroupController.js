@@ -14,10 +14,13 @@ function addDeviceGroup(req, res) {
     let groupLongitude = input.undefined.value.groupLong
 
     groupDAO.createDeviceGroup(groupName, groupLatitude, groupLongitude)
+    .then(function(x) {
+      res.json(x)
+    })
     // these are template strings
     // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
-    res.json(`Group: '${groupName}' created with lat ${groupLatitude} and long ${groupLongitude}`);
-
+    //res.json(`Group: '${groupName}' created with lat ${groupLatitude} and long ${groupLongitude}`);
+    
   }
   
 
