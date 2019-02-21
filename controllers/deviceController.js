@@ -7,10 +7,13 @@ var moment = require('moment');
 function addNewDevice(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
     var input = req.swagger.params.undefined.value
-    console.log("displayName" + input.displayName)
+    //console.log("displayName" + input.displayName)
     // console.log(input.undefined.value.timestamp)
     deviceDAO.saveDeviceData(input)
-    res.json("Data added to database");
+    .then(function(x){
+      res.json(x);
+
+    })
   }
   
 

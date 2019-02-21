@@ -15,13 +15,14 @@ function addNewCountry(req, res) {
 
     countryDAO.createOrUpdateCountry(countryName, code, countryID)
     .then(function(x) {
-      res.json(x)  // just respond with this 
-      // res.json({
-      //   "message" : "Created new country",
-      //   "countryName": x.countryName,
-      //   "countryCode" : x.code,
-      //   "countryID" : x.countryID
-      // })
+      //res.json(x)  // just respond with this 
+      res.json({
+        "message" : "Created new country",
+        "countryName": x.countryName,
+        "countryCode" : x.code,
+        "countryID" : x.countryID,
+        "databaseID" : x._id
+      })
     })
 
     // these are template strings
