@@ -24,8 +24,32 @@ function addOrUpdateDeviceType(req, res) {
     //res.json("Data added to database");
   }
   
+
+  function getAllDeviceTypes(req, res) {
+    // fetch the data
+    DeviceTypeDAO.getAllDeviceTypes()
+    .then(function(x){
+      res.send(x); // res.json not working?
+    })
+  }
+
+
+  function deleteDeviceType(req, res) {
+    var input = req.swagger.params
+    console.log(input)
+    var deviceTypeID = input.deviceTypeID.value
+    DeviceTypeDAO.deleteDeviceType(deviceTypeID)
+    .then(function(x){
+      res.send(x); // res.json not working?
+    })
+  }
+
+
+
   module.exports = {
     // export the above function as 'addData' so we can use it in other modules
-      addOrUpdateDeviceType: addOrUpdateDeviceType
+      addOrUpdateDeviceType: addOrUpdateDeviceType,
+      getAllDeviceTypes: getAllDeviceTypes,
+      deleteDeviceType: deleteDeviceType
     };
   

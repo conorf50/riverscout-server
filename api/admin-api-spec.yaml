@@ -57,10 +57,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'                   
-  /getDeviceTypes:
+  /getAllDeviceTypes:
     get:
       x-swagger-router-controller: deviceTypeController
-      operationId: getDeviceTypes
+      operationId: getAllDeviceTypes
       tags:
         - Device Types
       description: Returns all the device types
@@ -77,6 +77,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'    
+  /deleteDeviceType:
+    delete:
+      x-swagger-router-controller: deviceTypeController
+      operationId: deleteDeviceType
+      tags:
+        - Device Types
+      description: Deletes the selected device type
+      parameters:
+        - name: deviceTypeID
+          in: query
+          description: Database ID of the object to remove
+          schema:
+            type: string      
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
   /addDeviceReading:
     post:
       x-swagger-router-controller: deviceReadingController
