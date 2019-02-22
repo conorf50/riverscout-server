@@ -115,10 +115,10 @@ paths:
                 deviceType:
                   type: string
                   description: The type of this new device
-                  enum:
-                   - Air
-                   - River
-                  default: River          
+                  # enum:
+                  #  - Air
+                  #  - River
+                  # default: River          
                 deviceTypeDescription:
                   type: string
                   description: Describe the device characteristics here
