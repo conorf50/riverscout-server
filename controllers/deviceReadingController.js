@@ -14,15 +14,18 @@ function addSensorReading(req, res) {
      var device = input.undefined.value.device
      var data = input.undefined.value.data
      var tsString = input.undefined.value.timestamp
-     var tsInt = parseInt(tsString, 10)
+     var tsInt = parseInt(tsString, 10) // specify a base of 10 as the second arg
   
      var momentTs  = new moment.unix(tsInt); // important since we are recieving UTC unix timstamps from Sigfox
      console.log("integer timestamp = " + tsInt)
      console.log("converted moment = " + momentTs)
     // // save the data
     DAO.saveDeviceData(device, momentTs, data)
+    .then(function(x){
+      res.json(x);
+    })
     // this sends back a JSON response which is a single string
-    res.json("Data added to database");
+    // res.json("Data added to database");
   }
   
   module.exports = {
