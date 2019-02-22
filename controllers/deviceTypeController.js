@@ -13,10 +13,10 @@ function addOrUpdateDeviceType(req, res) {
   
     var deviceTypeName = input.undefined.value.deviceTypeName
     var deviceTypeDescription = input.undefined.value.deviceTypeDescription
-    //var deviceType = input.undefined.value.deviceType
-    console.log(`Creating new device type ${deviceTypeName} with desctiption ${deviceTypeDescription}`)
+    var deviceType = input.undefined.value.deviceType
+    console.log(`Creating new device type ${deviceTypeName} with desctiption ${deviceTypeDescription} of type ${deviceType}`)
     // // save the data
-    DeviceTypeDAO.createOrUpdateDeviceType(deviceTypeName, deviceTypeDescription)
+    DeviceTypeDAO.createOrUpdateDeviceType(deviceTypeName, deviceTypeDescription,deviceType)
     .then(function(x){
       res.json(x);
     })
