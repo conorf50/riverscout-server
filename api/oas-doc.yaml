@@ -88,6 +88,37 @@ paths:
                   description: UNIX timestamp coming from the Sigfox backend
         description: >-
           Adds a measurement for a specific device    
+  /addDeviceType:
+    post:
+      x-swagger-router-controller: deviceTypeController
+      tags:
+        - Device Types
+      description: Adds a new / updates an exising device type
+      operationId: addOrUpdateDeviceType
+      responses:
+        '201':
+          description: Added device type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - deviceTypeName
+                - deviceTypeDescription
+              properties:
+                deviceTypeName:
+                  type: string
+                  description: The name to use for a new device type
+                  minLength: 1
+                  maxLength: 30
+                deviceTypeDescription:
+                  type: string
+                  description: Describe the device characteristics here
+                  minLength: 1
+                  maxLength: 250
+        description: >-
+          Adds a measurement for a specific device              
   /addCountry:
     post:
       x-swagger-router-controller: countryCodeController

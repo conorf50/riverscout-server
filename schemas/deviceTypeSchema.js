@@ -12,9 +12,11 @@ var Schema = mongoose.Schema;
 // Model of a 'device type'
 
 const DeviceTypeSchema = new Schema({
-    deviceTypeID: mongoose.Schema.Types.ObjectId, 
-    deviceTypeName: String,  // eg: 'IE', 'UK', 'DE' etc.....
-    deviceTypeDescription: String  
+    // We are using MongoIDs as the unique key because they have a higher chance of
+    // being unique. We also include some 
+    // helpful info to make finding devices easier 
+    deviceTypeName: String,  // eg: "River Sensor V1"
+    deviceTypeDescription: String  // List the characteristics of this device type
   });
   
 // Compile model from schema
