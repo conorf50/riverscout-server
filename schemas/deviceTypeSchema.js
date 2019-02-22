@@ -16,6 +16,11 @@ const DeviceTypeSchema = new Schema({
     // being unique. We also include some 
     // helpful info to make finding devices easier 
     deviceTypeName: String,  // eg: "River Sensor V1"
+    deviceType: {
+        type: String,
+        enum: ['River', 'Air'], // we can have either a river gauge or an air quality sensor (in the future)
+        default: 'River'
+    },
     deviceTypeDescription: String  // List the characteristics of this device type
   });
   

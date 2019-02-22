@@ -112,6 +112,13 @@ paths:
                   description: The name to use for a new device type
                   minLength: 1
                   maxLength: 30
+                deviceType:
+                  type: string
+                  description: The type of this new device
+                  enum:
+                   - Air
+                   - River
+                  default: River          
                 deviceTypeDescription:
                   type: string
                   description: Describe the device characteristics here

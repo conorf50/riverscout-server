@@ -1,5 +1,5 @@
 'use strict'
-//var DeviceTypeDAO = require('../lib/typeDAO');
+var DeviceTypeDAO = require('../lib/deviceTypeDAO');
 //var Promise = require('bluebird');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
@@ -13,14 +13,15 @@ function addOrUpdateDeviceType(req, res) {
   
     var deviceTypeName = input.undefined.value.deviceTypeName
     var deviceTypeDescription = input.undefined.value.deviceTypeDescription
-    console.log(`Creating new device type ${deviceTypeName} with desctiption ${deviceTypeDescription}`)
+    var deviceType = input.undefined.value.deviceType
+    console.log(`Creating new device type ${deviceTypeName} with desctiption ${deviceTypeDescription} of type ${deviceType}`)
     // // save the data
-    // DAO.saveDeviceData(device, momentTs, data)
-    // .then(function(x){
-    //   res.json(x);
-    // })
+    DeviceTypeDAO.createOrUpdateDeviceType(deviceTypeName, deviceTypeDescription,deviceType)
+    .then(function(x){
+      res.json(x);
+    })
     // this sends back a JSON response which is a single string
-    res.json("Data added to database");
+    //res.json("Data added to database");
   }
   
   module.exports = {
