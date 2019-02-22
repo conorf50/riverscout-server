@@ -57,6 +57,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'                   
+  /getDeviceTypes:
+    get:
+      x-swagger-router-controller: deviceTypeController
+      operationId: getDeviceTypes
+      tags:
+        - Device Types
+      description: Returns all the device types
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
   /addDeviceReading:
     post:
       x-swagger-router-controller: deviceReadingController
