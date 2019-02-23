@@ -77,6 +77,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'    
+ 
   /deleteDeviceType:
     delete:
       x-swagger-router-controller: deviceTypeController
@@ -103,6 +104,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'   
+ 
   /addDeviceReading:
     post:
       x-swagger-router-controller: deviceReadingController
@@ -134,6 +136,7 @@ paths:
                   description: UNIX timestamp coming from the Sigfox backend
         description: >-
           Adds a measurement for a specific device    
+ 
   /addDeviceType:
     post:
       x-swagger-router-controller: deviceTypeController
@@ -161,18 +164,16 @@ paths:
                 deviceType:
                   type: string
                   description: The type of this new device
-                  # enum:
-                  #  - Air
-                  #  - River
-                  # default: River          
+                  default: 'river'
                 deviceTypeDescription:
                   type: string
                   description: Describe the device characteristics here
                   minLength: 1
                   maxLength: 250
         description: >-
-          Adds a measurement for a specific device              
-  /addCountry:
+          Adds a new device type along with it's description            
+ 
+  /addNewCountry:
     post:
       x-swagger-router-controller: countryCodeController
       tags:
@@ -198,7 +199,56 @@ paths:
                   type: string
                   description: Two character code eg; 'IE', 'FR', 'DE'
         description: >-
-          Adds a new country and returns it's database ID          
+          Adds a new country and returns it's database ID     
+          
+  /getCountryIDs:
+    get:
+      x-swagger-router-controller: countryCodeController
+      operationId: getAllCountryIDs
+      tags:
+        - Country Codes and Info
+      description: Returns all the country IDs
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'           
+                
+  /deleteCountry:
+    delete:
+      x-swagger-router-controller: countryCodeController
+      operationId: deleteCountry
+      tags:
+        - Country Codes and Info
+      description: Deletes the selected country
+      parameters:
+        - name: countryID
+          in: query
+          description: Database ID of the country to remove
+          schema:
+            type: string      
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
   /addDeviceGroup:
     post:
       x-swagger-router-controller: deviceGroupController
