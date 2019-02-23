@@ -37,8 +37,8 @@ function addNewCountry(req, res) {
     // fetch the data using a call to the DAO and then handle the response using a Promise
     // see the following question for this solution: https://stackoverflow.com/questions/41199718/return-promises-instead-of-res-jsondata-in-node-js 
     countryDAO.getAllCountries()
-    .then(function(data) {
-      res.send(data)
+    .then(function(x) {
+      res.send(x)
     })
     .catch(function(err) {
       //Promise.reject(err);
