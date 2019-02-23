@@ -6,7 +6,7 @@ info:
 paths:
   /deviceInfo:
     get:
-      x-swagger-router-controller: deviceController
+      x-swagger-router-controller: deviceInfoController
       operationId: getDeviceInfo
       tags:
         - Device Info
@@ -107,7 +107,7 @@ paths:
  
   /addSigfoxDeviceReading:
     post:
-      x-swagger-router-controller: sigfoxDeviceController
+      x-swagger-router-controller: sigfoxReadingController
       tags:
         - Sigfox Device Readings
       description: Adds a reading for a Sigfox device
