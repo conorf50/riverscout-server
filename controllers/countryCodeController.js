@@ -22,6 +22,9 @@ function addNewCountry(req, res) {
         "databaseID" : x._id
       })
     })
+    .catch(function(err){
+      res.json(err)
+    })
 
     // these are template strings
     // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
@@ -33,7 +36,6 @@ function addNewCountry(req, res) {
 
 
   function getAllCountries(req, res) {
-
     // fetch the data using a call to the DAO and then handle the response using a Promise
     // see the following question for this solution: https://stackoverflow.com/questions/41199718/return-promises-instead-of-res-jsondata-in-node-js 
     countryDAO.getAllCountries()
@@ -53,8 +55,8 @@ function addNewCountry(req, res) {
     console.log(input)
     var countryID = input.countryID.value
     countryDAO.deleteCountry(countryID)
-    .then(function(x){
-      res.send(x); // res.json not working?
+    .then(function(y){
+      res.send(y); // res.json not working?
     })
     .catch(function(err){
       res.json(err)
