@@ -14,7 +14,7 @@ const CountrySchema = new Schema({
     //_id: mongoose.Schema.Types.ObjectId(), // use this as a unique ID for a gauge even if it has been replaced. This is referenced in 'sigfoxDataSchema.js"
     countryName: String,                 // name to display on front end. Eg: "Ireland" , "United Kingdom" etc...
     code: String,  // eg: 'IE', 'UK', 'DE' etc.....
-    countryID: Number // 
+    countryID: mongoose.Schema.Types.ObjectId
   });
   
 // Compile model from schema
