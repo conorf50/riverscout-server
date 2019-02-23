@@ -105,13 +105,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'   
  
-  /addDeviceReading:
+  /addSigfoxDeviceReading:
     post:
-      x-swagger-router-controller: deviceReadingController
+      x-swagger-router-controller: sigfoxDeviceController
       tags:
-        - Device Reading
-      description: Adds a reading for a device
-      operationId: addSensorReading
+        - Sigfox Device Readings
+      description: Adds a reading for a Sigfox device
+      operationId: addSigfoxReading
       responses:
         '201':
           description: Added reading
@@ -135,7 +135,7 @@ paths:
                   type: string
                   description: UNIX timestamp coming from the Sigfox backend
         description: >-
-          Adds a measurement for a specific device    
+          Adds a measurement for a specific Sigfox device    
  
   /addDeviceType:
     post:
