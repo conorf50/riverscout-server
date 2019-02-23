@@ -23,6 +23,7 @@ var oasTools = require('oas-tools');
 var jsyaml = require('js-yaml');
 var serverPort = 8080;
 
+// filename changed to 'admin-api-spec' for semantics
 var spec = fs.readFileSync(path.join(__dirname, '/api/admin-api-spec.yaml'), 'utf8');
 var oasDoc = jsyaml.safeLoad(spec);
 
