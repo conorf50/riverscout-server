@@ -57,6 +57,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'                   
+  /getAllDeviceTypes:
+    get:
+      x-swagger-router-controller: deviceTypeController
+      operationId: getAllDeviceTypes
+      tags:
+        - Device Types
+      description: Returns all the device types
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+  /deleteDeviceType:
+    delete:
+      x-swagger-router-controller: deviceTypeController
+      operationId: deleteDeviceType
+      tags:
+        - Device Types
+      description: Deletes the selected device type
+      parameters:
+        - name: deviceTypeID
+          in: query
+          description: Database ID of the object to remove
+          schema:
+            type: string      
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
   /addDeviceReading:
     post:
       x-swagger-router-controller: deviceReadingController
@@ -88,6 +134,44 @@ paths:
                   description: UNIX timestamp coming from the Sigfox backend
         description: >-
           Adds a measurement for a specific device    
+  /addDeviceType:
+    post:
+      x-swagger-router-controller: deviceTypeController
+      tags:
+        - Device Types
+      description: Adds a new / updates an exising device type
+      operationId: addOrUpdateDeviceType
+      responses:
+        '201':
+          description: Added device type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - deviceTypeName
+                - deviceTypeDescription
+              properties:
+                deviceTypeName:
+                  type: string
+                  description: The name to use for a new device type
+                  minLength: 1
+                  maxLength: 30
+                deviceType:
+                  type: string
+                  description: The type of this new device
+                  # enum:
+                  #  - Air
+                  #  - River
+                  # default: River          
+                deviceTypeDescription:
+                  type: string
+                  description: Describe the device characteristics here
+                  minLength: 1
+                  maxLength: 250
+        description: >-
+          Adds a measurement for a specific device              
   /addCountry:
     post:
       x-swagger-router-controller: countryCodeController
