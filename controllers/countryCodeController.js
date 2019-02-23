@@ -11,16 +11,14 @@ function addNewCountry(req, res) {
     let input = req.swagger.params
     let countryName = input.undefined.value.countryName
     let code = input.undefined.value.code
-    let countryID = input.undefined.value.countryID
 
-    countryDAO.createOrUpdateCountry(countryName, code, countryID)
+    countryDAO.createOrUpdateCountry(countryName, code)
     .then(function(x) {
       //res.json(x)  // just respond with this 
       res.json({
         "message" : "Created new / updated existing country",
-        "countryName": x.countryName,
+        //"countryName": x.countryName,
         "countryCode" : x.code,
-        "countryID" : x.countryID,
         "databaseID" : x._id
       })
     })
