@@ -28,9 +28,42 @@ function addNewCountry(req, res) {
     //res.json(`Country: '${countryName}' created with code ${code} and ID ${countryID}`);
     //res.json("Created")
   }
+
+
+
+
+  function getAllCountries(req, res) {
+
+    // fetch the data using a call to the DAO and then handle the response using a Promise
+    // see the following question for this solution: https://stackoverflow.com/questions/41199718/return-promises-instead-of-res-jsondata-in-node-js 
+    countryDAO.getAllCountries()
+    .then(function(data) {
+      res.send(data)
+    })
+    .catch(function(err) {
+      //Promise.reject(err);
+      res.json(err)
+    });
+    // this sends back a JSON response which is a single string
+  }
   
 
+  function deleteCountry(req, res) {
+    var input = req.swagger.params
+    console.log(input)
+    var countryID = input.countryID.value
+    countryDAO.deleteCountry(countryID)
+    .then(function(x){
+      res.send(x); // res.json not working?
+    })
+    .catch(function(err){
+      res.json(err)
+    })
+  }
+
   module.exports = {
-    addNewCountry: addNewCountry
+    addNewCountry: addNewCountry,
+    getAllCountries: getAllCountries,
+    deleteCountry: deleteCountry
     };
   

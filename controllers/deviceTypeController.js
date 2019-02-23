@@ -42,6 +42,9 @@ function addOrUpdateDeviceType(req, res) {
     .then(function(x){
       res.send(x); // res.json not working?
     })
+    .catch(function(err){
+      res.json(err)
+    })
   }
 
 
