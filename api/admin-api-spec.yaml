@@ -201,10 +201,10 @@ paths:
         description: >-
           Adds a new country and returns it's database ID     
           
-  /getCountryIDs:
+  /getAllCountries:
     get:
       x-swagger-router-controller: countryCodeController
-      operationId: getAllCountryIDs
+      operationId: getAllCountries
       tags:
         - Country Codes and Info
       description: Returns all the country IDs
