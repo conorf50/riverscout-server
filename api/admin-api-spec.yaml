@@ -279,7 +279,7 @@ paths:
           Creates a device group with the specified parameters.        
   /addDevice:
     post:
-      x-swagger-router-controller: deviceController
+      x-swagger-router-controller: deviceInfoController
       tags:
         - Device
       description: Adds a new device (Sigfox/NBIoT)
