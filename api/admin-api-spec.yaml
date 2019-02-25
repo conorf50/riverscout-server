@@ -178,7 +178,7 @@ paths:
       x-swagger-router-controller: countryCodeController
       tags:
         - Country Codes and Info
-      description: Adds a new 'country' with an ID and a country code
+      description: Adds a new 'country' with a name and a country code. If the specified country exists, it will be updated instead.
       operationId: addNewCountry
       responses:
         '201':
@@ -207,7 +207,7 @@ paths:
       operationId: getAllCountries
       tags:
         - Country Codes and Info
-      description: Returns all the country IDs
+      description: Returns all the country IDs, names and codes.
       responses:
         '200':
           description: Successful request.
