@@ -9,13 +9,13 @@ paths:
   # Device info
   ###########################
   
-  /addNewDevice:
+  /addOrUpdateDevice:
     post:
       x-swagger-router-controller: deviceInfoController
       tags:
         - Device Info
-      description: Adds a new device (Sigfox/NBIoT)
-      operationId: addNewDevice
+      description: Adds a new device (Sigfox/NBIoT) or if the device already exists, updates it's details
+      operationId: addUpdateDevice
       responses:
         '201':
           description: Created
@@ -170,7 +170,7 @@ paths:
                 $ref: '#/components/schemas/Error'   
                 
     
-  /addDeviceGroup:
+  /addOrUpdateDeviceGroup:
     post:
       x-swagger-router-controller: deviceGroupController
       tags:
@@ -199,7 +199,8 @@ paths:
         description:
           Creates a device group with the specified parameters.
           
-  
+
+          
   ###########################
   # Device Types
   ###########################         
