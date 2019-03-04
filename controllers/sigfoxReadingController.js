@@ -1,5 +1,5 @@
 'use strict'
-var DAO = require('../lib/dao');
+var sigfoxDAO = require('../lib/sigfoxReadingDAO');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
@@ -19,19 +19,26 @@ function addSigfoxReading(req, res) {
      console.log("integer timestamp = " + tsInt)
      console.log("converted moment = " + momentTs)
     // // save the data
-    DAO.saveDeviceData(device, momentTs, data)
+    sigfoxDAO.saveDeviceData(device, momentTs, data)
     .then(function(x){
       res.json(x);
     })
-    // .catch(function(err){
-    //   res.json(err)
-    // })
+    .catch(function(err){
+      res.json(err)
+    })
     
     // this sends back a JSON response which is a single string
     // res.json("Data added to database");
   }
+
+
+
+  function getSigfoxReadings(req, res){
+    res.json("Dummy Controller")
+  }
   
   module.exports = {
-      addSigfoxReading: addSigfoxReading
+      addSigfoxReading: addSigfoxReading,
+      getSigfoxReadings: getSigfoxReadings
     };
   
