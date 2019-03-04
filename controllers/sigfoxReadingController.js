@@ -34,7 +34,20 @@ function addSigfoxReading(req, res) {
 
 
   function getSigfoxReadings(req, res){
-    res.json("Dummy Controller")
+
+    var input= req.swagger.params
+    var deviceID = input.deviceID.value
+    var timestampLt = input.timestampLt.value
+    var timestampGt = input.timestampGt.value
+
+    sigfoxDAO.getDeviceData(deviceID, timestampGt, timestampLt)
+    .then(x => {
+      res.send(x)
+    })
+    .catch(err => {
+      res.send(err)
+    })
+
   }
   
   module.exports = {
