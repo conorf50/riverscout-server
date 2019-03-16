@@ -50,8 +50,23 @@ function addSigfoxReading(req, res) {
 
   }
   
+
+
+  function deleteSigfoxReading(req, res, next) {
+    res.json("Dummy Controller!")
+    // this sends back a JSON response which is a single string
+  }
+
+
+  function deleteAllSigfoxReadings(req, res, next) {
+    res.json("Dummy Controller!")
+    // this sends back a JSON response which is a single string
+  }
+
   module.exports = {
       addSigfoxReading: addSigfoxReading,
-      getSigfoxReadings: getSigfoxReadings
+      getSigfoxReadings: getSigfoxReadings,
+      deleteSigfoxReading: deleteSigfoxReading,
+      deleteAllSigfoxReadings: deleteAllSigfoxReadings
     };
   
