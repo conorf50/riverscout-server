@@ -199,7 +199,7 @@ paths:
         description:
           Creates a device group with the specified parameters.
   
-  /deleteGroup:        
+  /deleteDeviceGroup:        
     delete:
       x-swagger-router-controller: deviceGroupController
       operationId: deleteDeviceGroup
@@ -281,7 +281,7 @@ paths:
                 $ref: '#/components/schemas/Error'   
  
  
-  /addDeviceType:
+  /addOrUpdateDeviceType:
     post:
       x-swagger-router-controller: deviceTypeController
       tags:
@@ -404,13 +404,13 @@ paths:
   # Country Info & Codes
   ########################### 
   
-  /addNewCountry:
+  /addOrUpdateCountry:
     post:
       x-swagger-router-controller: countryCodeController
       tags:
         - Country Codes and Info
       description: Adds a new 'country' with a name and a country code. If the specified country exists, it will be updated instead.
-      operationId: addNewCountry
+      operationId: addOrUpdateCountry
       responses:
         '201':
           description: Added country

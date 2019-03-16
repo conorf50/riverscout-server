@@ -6,7 +6,7 @@ var countryDAO = require('../lib/countryDAO');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
-function addNewCountry(req, res) {
+function addOrUpdateCountry(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
     let input = req.swagger.params
     let countryName = input.undefined.value.countryName
@@ -64,7 +64,7 @@ function addNewCountry(req, res) {
   }
 
   module.exports = {
-    addNewCountry: addNewCountry,
+    addOrUpdateCountry: addOrUpdateCountry,
     getAllCountries: getAllCountries,
     deleteCountry: deleteCountry
     };
