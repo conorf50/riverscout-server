@@ -29,7 +29,7 @@ var oasDoc = jsyaml.safeLoad(spec);
 
 var options_object = {
   controllers: path.join(__dirname, './controllers'),
-  loglevel: 'info',
+  loglevel: 'debug',
   strict: false,
   router: true,
   validator: true

@@ -2,242 +2,20 @@ openapi: 3.0.0
 info:
   title: API
   description: OpenAPI v3 powered API for Riverscout
-  version: '0.3'
+  version: '0.5'
 paths:
-  /deviceInfo:
-    get:
-      x-swagger-router-controller: deviceController
-      operationId: getDeviceInfo
-      tags:
-        - Device
-      description: Returns data for the specified device like it's location and group
-      parameters:
-        - name: deviceID
-          in: query
-          description: The database ID of the device to get data for
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successful request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Success'
-        default:
-          description: Invalid request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /deviceGroups:
-    get:
-      x-swagger-router-controller: deviceGroupController
-      operationId: getDeviceGroups
-      tags:
-        - Device Group
-      description: Returns all the device groups for the specified country code
-      parameters:
-        - name: countryCode
-          in: query
-          description: Return all groups in this country
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successful request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Success'
-        default:
-          description: Invalid request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'                   
-  /getAllDeviceTypes:
-    get:
-      x-swagger-router-controller: deviceTypeController
-      operationId: getAllDeviceTypes
-      tags:
-        - Device Types
-      description: Returns all the device types
-      responses:
-        '200':
-          description: Successful request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Success'
-        default:
-          description: Invalid request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'    
-  /deleteDeviceType:
-    delete:
-      x-swagger-router-controller: deviceTypeController
-      operationId: deleteDeviceType
-      tags:
-        - Device Types
-      description: Deletes the selected device type
-      parameters:
-        - name: deviceTypeID
-          in: query
-          description: Database ID of the object to remove
-          schema:
-            type: string      
-      responses:
-        '200':
-          description: Successful request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Success'
-        default:
-          description: Invalid request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'   
-  /addDeviceReading:
+
+  ###########################
+  # Device info
+  ###########################
+  
+  /addOrUpdateDevice:
     post:
-      x-swagger-router-controller: deviceReadingController
+      x-swagger-router-controller: deviceInfoController
       tags:
-        - Device Reading
-      description: Adds a reading for a device
-      operationId: addSensorReading
-      responses:
-        '201':
-          description: Added reading
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - sigfoxID
-                - rawHexString
-                - timestamp
-              properties:
-                sigfoxID:
-                  type: string
-                  description: The Sigfox ID for a device
-                rawHexString:
-                  type: string
-                  description: The raw hex data coming from the Sigfox backend 
-                timestamp:
-                  type: string
-                  description: UNIX timestamp coming from the Sigfox backend
-        description: >-
-          Adds a measurement for a specific device    
-  /addDeviceType:
-    post:
-      x-swagger-router-controller: deviceTypeController
-      tags:
-        - Device Types
-      description: Adds a new / updates an exising device type
-      operationId: addOrUpdateDeviceType
-      responses:
-        '201':
-          description: Added device type
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - deviceTypeName
-                - deviceTypeDescription
-              properties:
-                deviceTypeName:
-                  type: string
-                  description: The name to use for a new device type
-                  minLength: 1
-                  maxLength: 30
-                deviceType:
-                  type: string
-                  description: The type of this new device
-                  # enum:
-                  #  - Air
-                  #  - River
-                  # default: River          
-                deviceTypeDescription:
-                  type: string
-                  description: Describe the device characteristics here
-                  minLength: 1
-                  maxLength: 250
-        description: >-
-          Adds a measurement for a specific device              
-  /addCountry:
-    post:
-      x-swagger-router-controller: countryCodeController
-      tags:
-        - Country Codes
-      description: Adds a new 'country' with an ID and a country code
-      operationId: addNewCountry
-      responses:
-        '201':
-          description: Added country
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - countryName
-                - code
-                - countryID
-              properties:
-                countryName:
-                  type: string
-                  description: The name of this country eg 'Ireland'
-                countryID:
-                  type: number
-                  description: A numeric ID for a country. Must be unique 
-                code:
-                  type: string
-                  description: Two character code eg; 'IE', 'FR', 'DE'
-        description: >-
-          Adds a measurement for a specific device             
-  /addDeviceGroup:
-    post:
-      x-swagger-router-controller: deviceGroupController
-      tags:
-        - Device Group
-      description: Adds a group for devices
-      operationId: addDeviceGroup
-      responses:
-        '201':
-          description: Created new group
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - groupLat
-                - groupLong
-                - groupName
-              properties:
-                groupLat:
-                  type: number
-                groupLong:
-                  type: number
-                groupName:
-                  type: string
-        description: >-
-          Creates a device group with the specified parameters.        
-  /addDevice:
-    post:
-      x-swagger-router-controller: deviceController
-      tags:
-        - Device
-      description: Adds a new device (Sigfox/NBIoT)
-      operationId: addNewDevice
+        - Device Info
+      description: Adds a new device (Sigfox/NBIoT) or if the device already exists, updates it's details
+      operationId: addUpdateDevice
       responses:
         '201':
           description: Created
@@ -302,7 +80,492 @@ paths:
                   
         description: >-
           Pushes Sigfox device data to the database with the device ID and
-          timestamp.              
+          timestamp. 
+
+
+  /getInfoForDeviceID:
+    get:
+      x-swagger-router-controller: deviceInfoController
+      operationId: getDeviceInfo
+      tags:
+        - Device Info
+      description: Returns data for the specified device like it's location and group
+      parameters:
+        - name: deviceID
+          in: query
+          description: The database ID of the device to get data for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          
+  /getDevicesForGroupID:
+    get:
+      x-swagger-router-controller: deviceInfoController
+      operationId: getDevicesForGroupID
+      tags:
+        - Device Info
+      description: Returns the IDs of the devices in a group
+      parameters:
+        - name: groupID
+          in: query
+          description: The database ID of the group to get data for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'          
+                
+                
+  /deleteDeviceInfo:
+    delete:
+      x-swagger-router-controller: deviceInfoController
+      operationId: deleteDeviceInfo
+      tags:
+        - Device Info
+      description: Deletes the selected device type
+      parameters:
+        - name: deviceID
+          in: query
+          description: Database ID of the object to remove
+          schema:
+            type: string      
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error' 
+                
+  ###########################
+  # Device Groups
+  ###########################
+                
+  /deviceGroups:
+    get:
+      x-swagger-router-controller: deviceGroupController
+      operationId: getDeviceGroups
+      tags:
+        - Device Group
+      description: Returns all the device groups for the specified country code
+      parameters:
+        - name: countryCode
+          in: query
+          description: Return all groups in this country
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+                
+    
+  /addOrUpdateDeviceGroup:
+    post:
+      x-swagger-router-controller: deviceGroupController
+      tags:
+        - Device Group
+      description: Adds a group for devices
+      operationId: addDeviceGroup
+      responses:
+        '201':
+          description: Created new group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - groupLat
+                - groupLong
+                - groupName
+              properties:
+                groupLat:
+                  type: number
+                groupLong:
+                  type: number
+                groupName:
+                  type: string
+        description:
+          Creates a device group with the specified parameters.
+  
+  /deleteDeviceGroup:        
+    delete:
+      x-swagger-router-controller: deviceGroupController
+      operationId: deleteDeviceGroup
+      tags:
+        - Device Group
+      description: Deletes the selected device group
+      parameters:
+        - name: deviceGroupID
+          in: query
+          description: Database ID of the object to remove
+          schema:
+            type: string      
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+ 
+          
+  ###########################
+  # Device Types
+  ###########################         
+    
+                
+  /getAllDeviceTypes:
+    get:
+      x-swagger-router-controller: deviceTypeController
+      operationId: getAllDeviceTypes
+      tags:
+        - Device Types
+      description: Returns all the device types
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+ 
+  /deleteDeviceType:
+    delete:
+      x-swagger-router-controller: deviceTypeController
+      operationId: deleteDeviceType
+      tags:
+        - Device Types
+      description: Deletes the selected device type
+      parameters:
+        - name: deviceTypeID
+          in: query
+          description: Database ID of the object to remove
+          schema:
+            type: string      
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'   
+ 
+ 
+  /addOrUpdateDeviceType:
+    post:
+      x-swagger-router-controller: deviceTypeController
+      tags:
+        - Device Types
+      description: Adds a new / updates an exising device type
+      operationId: addOrUpdateDeviceType
+      responses:
+        '201':
+          description: Added device type
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - deviceTypeName
+                - deviceTypeDescription
+              properties:
+                deviceTypeName:
+                  type: string
+                  description: The name to use for a new device type
+                  minLength: 1
+                  maxLength: 30
+                deviceType:
+                  type: string
+                  description: The type of this new device
+                  default: 'river'
+                deviceTypeDescription:
+                  type: string
+                  description: Describe the device characteristics here
+                  minLength: 1
+                  maxLength: 250
+        description:
+          Adds a new device type along with it's description  
+ 
+ 
+  ###########################
+  # Device Readings (Sigfox)
+  ########################### 
+  
+  
+  /addSigfoxDeviceReading:
+    post:
+      x-swagger-router-controller: sigfoxReadingController
+      tags:
+        - Sigfox Device Readings
+      description: Adds a reading for a Sigfox device
+      operationId: addSigfoxReading
+      responses:
+        '201':
+          description: Added reading
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - sigfoxID
+                - rawHexString
+                - timestamp
+              properties:
+                sigfoxID:
+                  type: string
+                  description: The Sigfox ID for a device
+                rawHexString:
+                  type: string
+                  description: The raw hex data coming from the Sigfox backend 
+                timestamp:
+                  type: string
+                  description: UNIX timestamp coming from the Sigfox backend
+        description:
+          Adds a measurement for a specific Sigfox device    
+ 
+ 
+ 
+  /deleteOneSigfoxDeviceReading:
+    delete:
+      x-swagger-router-controller: sigfoxReadingController
+      operationId: deleteSigfoxReading
+      tags:
+        - Sigfox Device Readings
+      description: Deletes the selected reading for a Sigfox device
+      parameters:
+        - name: readingID
+          in: query
+          description: Database ID of the record to remove
+          schema:
+            type: string      
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+ 
+  /deleteAllSigfoxDeviceReadings:
+    delete:
+      x-swagger-router-controller: sigfoxReadingController
+      operationId: deleteAllSigfoxReadings
+      tags:
+        - Sigfox Device Readings
+      description: Deletes all readings for a Sigfox device
+      parameters:
+        - name: readingID
+          in: query
+          description: Database ID of the device to remove readings for
+          schema:
+            type: string      
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error' 
+    
+  /getReadingsForDeviceID:
+    get:
+      x-swagger-router-controller: sigfoxReadingController
+      operationId: getSigfoxReadings
+      tags:
+        - Sigfox Device Readings
+      description: Returns readings for the specified device between the timestamps specified
+      parameters:
+        
+        - name: deviceID
+          in: query
+          description: The database ID of the device to get data for
+          required: true
+          schema:
+            type: string
+        
+        - name: timestampGt
+          in: query
+          description: Fetch results greater than this timestamp
+          required: true
+          schema:
+            type: string
+        
+        - name: timestampLt
+          in: query
+          description: Fetch results less than this timestamp
+          required: true
+          schema:
+            type: string             
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+    
+          
+  ###########################
+  # Country Info & Codes
+  ########################### 
+  
+  /addOrUpdateCountry:
+    post:
+      x-swagger-router-controller: countryCodeController
+      tags:
+        - Country Codes and Info
+      description: Adds a new 'country' with a name and a country code. If the specified country exists, it will be updated instead.
+      operationId: addOrUpdateCountry
+      responses:
+        '201':
+          description: Added country
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - countryName
+                - code
+              properties:
+                countryName:
+                  type: string
+                  description: The name of this country eg 'Ireland'
+                code:
+                  type: string
+                  description: Two character code eg; 'IE', 'FR', 'DE'
+        description: >-
+          Adds a new country and returns it's database ID     
+          
+  /getAllCountries:
+    get:
+      x-swagger-router-controller: countryCodeController
+      operationId: getAllCountries
+      tags:
+        - Country Codes and Info
+      description: Returns all the country IDs, names and codes.
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'           
+                
+  /deleteCountry:
+    delete:
+      x-swagger-router-controller: countryCodeController
+      operationId: deleteCountry
+      tags:
+        - Country Codes and Info
+      description: Deletes the selected country
+      parameters:
+        - name: countryID
+          in: query
+          description: Database ID of the country to remove
+          schema:
+            type: string      
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+                
+    
+             
 servers:
   - url: /api
 components:

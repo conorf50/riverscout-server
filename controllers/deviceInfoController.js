@@ -4,7 +4,7 @@ var deviceDAO = require('../lib/deviceDAO');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
-function addNewDevice(req, res) {
+function addUpdateDevice(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
     var input = req.swagger.params.undefined.value
     //console.log("displayName" + input.displayName)
@@ -35,9 +35,22 @@ function addNewDevice(req, res) {
     // this sends back a JSON response which is a single string
   }
   
+  function deleteDeviceInfo(req, res, next) {
+    res.json("Dummy Controller!")
+    // this sends back a JSON response which is a single string
+  }
+
+
+
+  function getDevicesForGroupID(req, res, next) {
+    res.json("Dummy Controller!")
+    // this sends back a JSON response which is a single string
+  }
   
   module.exports = {
-      addNewDevice: addNewDevice,
-      getDeviceInfo: getDeviceInfo
+      addUpdateDevice: addUpdateDevice,
+      getDeviceInfo: getDeviceInfo,
+      deleteDeviceInfo: deleteDeviceInfo,
+      getDevicesForGroupID: getDevicesForGroupID
     };
   

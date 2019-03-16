@@ -39,9 +39,15 @@ function addDeviceGroup(req, res) {
 
   }
 
+  function deleteDeviceGroup(req, res, next) {
+    res.json("Dummy Controller!")
+    // this sends back a JSON response which is a single string
+  }
+
 
   module.exports = {
     addDeviceGroup: addDeviceGroup,
-    getDeviceGroups: getDeviceGroups
+    getDeviceGroups: getDeviceGroups,
+    deleteDeviceGroup: deleteDeviceGroup
     };
   
