@@ -43,6 +43,8 @@ function addDeviceGroup(req, res) {
     res.json("Dummy Controller!")
     // this sends back a JSON response which is a single string
   }
+
+
   module.exports = {
     addDeviceGroup: addDeviceGroup,
     getDeviceGroups: getDeviceGroups,
