@@ -17,6 +17,9 @@ function addDeviceGroup(req, res) {
     .then(function(x) {
       res.json(x)
     })
+    .catch(err =>{ 
+      res.json(err) // catch and return the error 'err' to the user
+    })
     // these are template strings
     // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
     //res.json(`Group: '${groupName}' created with lat ${groupLatitude} and long ${groupLongitude}`);
@@ -27,11 +30,15 @@ function addDeviceGroup(req, res) {
   function getDeviceGroups(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
     let input = req.swagger.params
-    
     let countryCode = input.countryCode.value
+    console.log(`Country Code ${countryCode}`)
+
     groupDAO.findDeviceGroups(countryCode)
     .then(result => {
       res.send(result)
+    })
+    .catch(err =>{ 
+      res.json(err) // catch and return the error 'err' to the user
     })
     // these are template strings
     // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
