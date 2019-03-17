@@ -12,8 +12,10 @@ function addUpdateDevice(req, res) {
     deviceDAO.saveDeviceData(input)
     .then(function(x){
       res.json(x);
-
     })
+    .catch(function(err) {
+      res.json(err)
+    });
   }
   
 
@@ -29,7 +31,6 @@ function addUpdateDevice(req, res) {
       res.send(data)
     })
     .catch(function(err) {
-      Promise.reject(err);
       res.json(err)
     });
     // this sends back a JSON response which is a single string
@@ -44,7 +45,6 @@ function addUpdateDevice(req, res) {
       res.send(data)
     })
     .catch(function(err) {
-      Promise.reject(err);
       res.json(err)
     });
 
