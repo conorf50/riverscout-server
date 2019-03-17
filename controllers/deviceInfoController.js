@@ -42,15 +42,15 @@ function addUpdateDevice(req, res) {
 
 
 
-  function getDevicesForGroupID(req, res, next) {
-    res.json("Dummy Controller!")
-    // this sends back a JSON response which is a single string
-  }
+  // function getDevicesForGroupID(req, res, next) {
+  //   res.json("Dummy Controller!")
+  //   // this sends back a JSON response which is a single string
+  // }
   
   module.exports = {
       addUpdateDevice: addUpdateDevice,
       getDeviceInfo: getDeviceInfo,
-      deleteDeviceInfo: deleteDeviceInfo,
-      getDevicesForGroupID: getDevicesForGroupID
+      deleteDeviceInfo: deleteDeviceInfo
+      //getDevicesForGroupID: getDevicesForGroupID
     };
   
