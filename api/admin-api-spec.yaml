@@ -173,10 +173,10 @@ paths:
                 $ref: '#/components/schemas/Error'   
                 
     
-  /getDevicesForGroupID:
+  /getDevicesInGroup:
     get:
       x-swagger-router-controller: deviceGroupController
-      operationId: getDevicesForGroupID
+      operationId: getDevicesInGroup
       tags:
         - Device Group
       description: Returns the IDs of the devices in a group
