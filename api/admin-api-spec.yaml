@@ -33,7 +33,7 @@ paths:
                 - installDate
                 - replacementDate
                 - reportingFreq
-                - groupID
+                - groupIDS
                 - downlinkStatus
               properties:
                 displayName:
@@ -111,35 +111,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
           
-  /getDevicesForGroupID:
-    get:
-      x-swagger-router-controller: deviceInfoController
-      operationId: getDevicesForGroupID
-      tags:
-        - Device Info
-      description: Returns the IDs of the devices in a group
-      parameters:
-        - name: groupID
-          in: query
-          description: The database ID of the group to get data for
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Successful request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Success'
-        default:
-          description: Invalid request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'          
-                
-                
+              
   /deleteDeviceInfo:
     delete:
       x-swagger-router-controller: deviceInfoController
@@ -152,7 +124,9 @@ paths:
           in: query
           description: Database ID of the object to remove
           schema:
-            type: string      
+            type: string 
+          required: true   
+                    
       responses:
         '200':
           description: Successful request.
@@ -171,7 +145,7 @@ paths:
   # Device Groups
   ###########################
                 
-  /deviceGroups:
+  /getAllDeviceGroups:
     get:
       x-swagger-router-controller: deviceGroupController
       operationId: getDeviceGroups
@@ -198,6 +172,35 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'   
                 
+    
+  /getDevicesInGroup:
+    get:
+      x-swagger-router-controller: deviceGroupController
+      operationId: getDevicesInGroup
+      tags:
+        - Device Group
+      description: Returns the IDs of the devices in a group
+      parameters:
+        - name: groupID
+          in: query
+          description: The database ID of the group to get data for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+    
     
   /addOrUpdateDeviceGroup:
     post:
@@ -412,6 +415,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+ 
  
   /deleteAllSigfoxDeviceReadings:
     delete:

@@ -12,8 +12,10 @@ function addUpdateDevice(req, res) {
     deviceDAO.saveDeviceData(input)
     .then(function(x){
       res.json(x);
-
     })
+    .catch(function(err) {
+      res.json(err)
+    });
   }
   
 
@@ -29,28 +31,37 @@ function addUpdateDevice(req, res) {
       res.send(data)
     })
     .catch(function(err) {
-      Promise.reject(err);
       res.json(err)
     });
     // this sends back a JSON response which is a single string
   }
   
-  function deleteDeviceInfo(req, res, next) {
-    res.json("Dummy Controller!")
-    // this sends back a JSON response which is a single string
+  function deleteDeviceInfo(req, res) {
+    //res.json("Dummy Controller!")
+    var deviceID = req.swagger.params.deviceID.value
+
+    deviceDAO.deleteDeviceData(deviceID)
+    .then(function(data) {
+      res.send(data)
+    })
+    .catch(function(err) {
+      res.json(err)
+    });
+
+
   }
 
 
 
-  function getDevicesForGroupID(req, res, next) {
-    res.json("Dummy Controller!")
-    // this sends back a JSON response which is a single string
-  }
+  // function getDevicesForGroupID(req, res, next) {
+  //   res.json("Dummy Controller!")
+  //   // this sends back a JSON response which is a single string
+  // }
   
   module.exports = {
       addUpdateDevice: addUpdateDevice,
       getDeviceInfo: getDeviceInfo,
-      deleteDeviceInfo: deleteDeviceInfo,
-      getDevicesForGroupID: getDevicesForGroupID
+      deleteDeviceInfo: deleteDeviceInfo
+      //getDevicesForGroupID: getDevicesForGroupID
     };
   
