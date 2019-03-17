@@ -152,7 +152,9 @@ paths:
           in: query
           description: Database ID of the object to remove
           schema:
-            type: string      
+            type: string 
+          required: true   
+                    
       responses:
         '200':
           description: Successful request.
@@ -412,6 +414,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+ 
  
   /deleteAllSigfoxDeviceReadings:
     delete:

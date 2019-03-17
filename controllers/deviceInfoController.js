@@ -35,9 +35,20 @@ function addUpdateDevice(req, res) {
     // this sends back a JSON response which is a single string
   }
   
-  function deleteDeviceInfo(req, res, next) {
-    res.json("Dummy Controller!")
-    // this sends back a JSON response which is a single string
+  function deleteDeviceInfo(req, res) {
+    //res.json("Dummy Controller!")
+    var deviceID = req.swagger.params.deviceID.value
+
+    deviceDAO.deleteDeviceData(deviceID)
+    .then(function(data) {
+      res.send(data)
+    })
+    .catch(function(err) {
+      Promise.reject(err);
+      res.json(err)
+    });
+
+
   }
 
 
