@@ -12,11 +12,10 @@ var Schema = mongoose.Schema;
 // This collection contains the latitude, longitude and name of each of the groups
 const DeviceGroupSchema = new Schema({
     //_id: mongoose.Schema.Types.ObjectId(), // internal ID that Mongo uses for each document 
-    groupLat: {type: mongoose.Schema.Types.Decimal128, required:true},// group latitude
-    groupLong: {type: mongoose.Schema.Types.Decimal128, required:true}, // group longitude
+    groupLat: {type: mongoose.Schema.Types.Decimal128, required:true},// group latitude used to display a marker on a map. Must be unique for each group
+    groupLong: {type: mongoose.Schema.Types.Decimal128, required:true}, // see above
     groupName: {type: String, required:true},
-    countryCode: {type: String, required: true}   // display name for group
-    // add reference to a LUT for country codes here .... 
+    countryCode: {type: String, required: true}   // Will be populated with a dropdown from the front end so there is "no" chance of inserting wrong data
   });
   
 // Compile model from schema
