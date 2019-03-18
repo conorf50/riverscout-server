@@ -158,6 +158,7 @@ paths:
           description: Return all groups in this country
           schema:
             type: string
+          required: true  
       responses:
         '200':
           description: Successful request.
@@ -211,7 +212,7 @@ paths:
       operationId: addDeviceGroup
       responses:
         '201':
-          description: Created new group
+          description: Created/modified group
       requestBody:
         content:
           application/json:
@@ -221,12 +222,15 @@ paths:
                 - groupLat
                 - groupLong
                 - groupName
+                - countryCode
               properties:
                 groupLat:
                   type: number
                 groupLong:
                   type: number
                 groupName:
+                  type: string
+                countryCode:
                   type: string
         description:
           Creates a device group with the specified parameters.

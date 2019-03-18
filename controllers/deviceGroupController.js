@@ -1,8 +1,8 @@
 'use strict'
-var groupDAO = require('../lib/groupDAO');
+var groupDAO = require('../lib/deviceGroupDAO');
 //var Promise = require('bluebird');
 
-console.log(require('../lib/groupDAO'))
+console.log(require('../lib/deviceGroupDAO'))
 
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
@@ -12,8 +12,9 @@ function addDeviceGroup(req, res) {
     let groupName = input.undefined.value.groupName
     let groupLatitude = input.undefined.value.groupLat
     let groupLongitude = input.undefined.value.groupLong
+    let countryCode = input.undefined.value.countryCode
 
-    groupDAO.createDeviceGroup(groupName, groupLatitude, groupLongitude)
+    groupDAO.createDeviceGroup(groupName, groupLatitude, groupLongitude, countryCode)
     .then(function(x) {
       res.json(x)
     })
