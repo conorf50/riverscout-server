@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "nodemon app.js",
-    "test": "NODE_ENV=test mocha --recursive --exit"
+    "test": "NODE_ENV=development mocha --recursive --exit"
   },
   "keywords": [
     "Riverscout"
@@ -25,6 +25,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.0.0",
+    "mongodb-memory-server": "^4.2.1",
     "nodemon": "^1.18.9",
     "supertest": "^3.4.2"
   }
