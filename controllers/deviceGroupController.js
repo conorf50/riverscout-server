@@ -1,8 +1,8 @@
 'use strict'
-var groupDAO = require('../lib/groupDAO');
+var groupDAO = require('../lib/deviceGroupDAO');
 //var Promise = require('bluebird');
 
-console.log(require('../lib/groupDAO'))
+console.log(require('../lib/deviceGroupDAO'))
 
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
@@ -12,10 +12,14 @@ function addDeviceGroup(req, res) {
     let groupName = input.undefined.value.groupName
     let groupLatitude = input.undefined.value.groupLat
     let groupLongitude = input.undefined.value.groupLong
+    let countryCode = input.undefined.value.countryCode
 
-    groupDAO.createDeviceGroup(groupName, groupLatitude, groupLongitude)
+    groupDAO.createDeviceGroup(groupName, groupLatitude, groupLongitude, countryCode)
     .then(function(x) {
       res.json(x)
+    })
+    .catch(err =>{ 
+      res.json(err) // catch and return the error 'err' to the user
     })
     // these are template strings
     // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
@@ -27,11 +31,15 @@ function addDeviceGroup(req, res) {
   function getDeviceGroups(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
     let input = req.swagger.params
-    
     let countryCode = input.countryCode.value
+    console.log(`Country Code ${countryCode}`)
+
     groupDAO.findDeviceGroups(countryCode)
     .then(result => {
       res.send(result)
+    })
+    .catch(err =>{ 
+      res.json(err) // catch and return the error 'err' to the user
     })
     // these are template strings
     // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
