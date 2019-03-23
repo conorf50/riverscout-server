@@ -8,7 +8,6 @@ var app = require('../../app'),
   chai = require('chai'),
   request = require('supertest');
 var expect = chai.expect;
-var mongod = require('../setup')
 describe('Second Test', function() {
     describe('#GET / devices', function() { 
       it('should get all devices for the country IE', function(done) { 
