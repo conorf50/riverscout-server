@@ -7,13 +7,14 @@
 var app = require('../../app'),
   chai = require('chai'),
   request = require('supertest');
+  
 var expect = chai.expect;
-
-describe('First Integration Test', function() {
-    describe.skip('#GET / deviceGroups', function() { 
-      it('should get all device groups for the country IE', function(done) { 
-        request(app) .get('/deviceGroups&countryCode="IE"')
+describe('Get All Countries', function() {
+    describe('#GET / getAllCountries', function() { 
+      it('should get all countries', function(done) { 
+        request(app) .get('/api/getAllCountries')
           .end(function(err, res) { 
+            console.log("Response" + JSON.stringify(res))
             expect(res.statusCode).to.equal(200); 
             done(); 
           }); 
