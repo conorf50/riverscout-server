@@ -6,7 +6,7 @@
 
 var app = require('../../app'),
   chai = require('chai'),
-  request = require('supertest');
+  request = require('supertest').agent(app);
   
 var expect = chai.expect;
 describe('Second Test', function() {
