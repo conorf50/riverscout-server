@@ -2,7 +2,8 @@
 // created with help from here:
 //https://stackoverflow.com/questions/50546533/unit-test-node-js-mongoose-mocha-chai-sinon
 var mongoose = require('mongoose');
-var DBHelper = require('./DBHelper')
+var countryHelper = require('./countryHelper')
+var groupHelper = require('./groupHelper')
 mongoose.set('debug', true);
 
 /*
@@ -29,7 +30,8 @@ before (function () {
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));
     
     // insert some sample data into the database
-    return DBHelper.insert("Ireland", "IE")
+    countryHelper.populate()
+    groupHelper.populate()
 });
 
 after(function () {
