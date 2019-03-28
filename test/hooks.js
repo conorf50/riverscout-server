@@ -2,7 +2,7 @@
 // created with help from here:
 //https://stackoverflow.com/questions/50546533/unit-test-node-js-mongoose-mocha-chai-sinon
 var mongoose = require('mongoose');
-var CountryDAO = require('../lib/countryDAO')
+var DBHelper = require('./DBHelper')
 mongoose.set('debug', true);
 
 /*
@@ -23,19 +23,13 @@ before (function () {
     mongoose.Promise = global.Promise;
     //Get the default connection
     var db = mongoose.connection;
-    // insert some sample data into the database
 
     
     //Bind connection to error event (to get notification of connection errors)
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));
     
-    return CountryDAO.createOrUpdateCountry("Ireland", "IE")
-
-    // CountrySchema.insertOne([{
-    //     countryName: "Ireland ",                 // name to display on front end. Eg: "Ireland" , "United Kingdom" etc...
-    //     code: "IE",  // eg: 'IE', 'UK', 'DE' etc.....
-    //     countryID: new mongoose.Types.ObjectId
-    // }]);
+    // insert some sample data into the database
+    return DBHelper.insert("Ireland", "IE")
 });
 
 after(function () {
