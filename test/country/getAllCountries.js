@@ -14,8 +14,9 @@ describe('Get All Countries', function() {
       it('should get all countries', function(done) { 
         request(app) .get('/api/getAllCountries')
           .end(function(err, res) { 
-            console.log("Response" + JSON.stringify(res))
+            console.log("Response" + JSON.stringify(res.text))
             expect(res.statusCode).to.equal(200); 
+            //console.log(res.text.countryCode);
             done(); 
           }); 
       });

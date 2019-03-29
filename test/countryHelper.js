@@ -23,7 +23,7 @@ mongoose.set('debug', true);
 var countryHelper = {} // do this so we can use the same name for module.exports while adding functions
 // new functions will be accessed by caling DAO.<newFunc>
 countryHelper.populate = function() {
-    console.log("Running insert script");
+    console.log("inserting countries");
     
     return country.countrySchema.insertMany([{ 
         countryName: "Ireland",                 

@@ -6,6 +6,9 @@ var countryHelper = require('./countryHelper')
 var groupHelper = require('./groupHelper')
 mongoose.set('debug', true);
 
+var country = require('../schemas/countrySchema')
+
+
 /*
 Test db details.
 
@@ -17,20 +20,18 @@ db.createUser({
 */
 
 
-before (function () {
+before(async function () {
     console.log("This is a setup hook!")
-    mongoose.connect('mongodb://npm:unittesting@10.10.1.10/npm_test_db', { useNewUrlParser: true }); // set up the connection with the above IP address ,user and password  
-    // Get Mongoose to use the global promise library
-    mongoose.Promise = global.Promise;
-    //Get the default connection
-    var db = mongoose.connection;
 
-    
-    //Bind connection to error event (to get notification of connection errors)
-    db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-    
     // insert some sample data into the database
-    countryHelper.populate()
+    //countryHelper.populate()
+    await country.countrySchema.insertMany([{ 
+        countryName: "Ireland",                 
+        code: "IE", 
+        countryID: mongoose.Types.ObjectId 
+    }], function(err) {
+        return err
+    });
     groupHelper.populate()
 });
 
