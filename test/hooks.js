@@ -28,9 +28,9 @@ after(async function () {
     await deviceGroups.deviceGroupSchema.deleteMany({}, function(err) {
         return err
     });
-    await sigfoxReadings.sigfox_device.deleteMany({}, function(err) {
-        return err
-    });
+    // await sigfoxReadings.sigfox_device.deleteMany({}, function(err) {
+    //     return err
+    // });
     console.log("Clearing data")
 
 })
