@@ -6,15 +6,16 @@
 
 var app = require('../../app'),
   chai = require('chai'),
-  request = require('supertest').agent(app);
+  request = require('supertest');
 var expect = chai.expect;
 
-describe('First Integration Test', function() {
-    describe.skip('#GET / deviceGroups', function() { 
+describe('Get All Device Groups for code "IE" ', function() {
+    describe('#GET / deviceGroups', function() { 
       it('should get all device groups for the country IE', function(done) { 
-        request(app) .get('/deviceGroups&countryCode="IE"')
+        request(app) .get('/api/getAllDeviceGroups?countryCode=IE')
           .end(function(err, res) { 
             expect(res.statusCode).to.equal(200); 
+            console.log("Device Groups = " + res)
             done(); 
           }); 
       });

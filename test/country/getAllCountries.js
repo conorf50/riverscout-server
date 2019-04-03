@@ -4,6 +4,12 @@
 
 'use strict';
 
+//const http = require("http");
+//const _request = request.agent(app.app);
+//const keepAliveAgent = new http.Agent({ keepAlive: true, keepAliveMsecs: 90000, timeout: 1200000, maxSockets:10, maxFreeSockets:10 });
+
+
+
 var app = require('../../app'),
   chai = require('chai'),
   request = require('supertest');

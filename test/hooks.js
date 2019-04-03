@@ -24,14 +24,7 @@ before(async function () {
     console.log("This is a setup hook!")
 
     // insert some sample data into the database
-    //countryHelper.populate()
-    await country.countrySchema.insertMany([{ 
-        countryName: "Ireland",                 
-        code: "IE", 
-        countryID: mongoose.Types.ObjectId 
-    }], function(err) {
-        return err
-    });
+    countryHelper.populate()
     groupHelper.populate()
 });
 
