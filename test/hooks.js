@@ -13,7 +13,14 @@ const sigfoxReadings = require('../schemas/sigfoxDataSchema')
 
 
 before(async function () {
-    console.log("This is a setup hook!")
+    console.log("Clearing existing data and starting tests.")
+    
+    await country.countrySchema.deleteMany({}, function(err) {
+        return err
+    });
+    await deviceGroups.deviceGroupSchema.deleteMany({}, function(err) {
+        return err
+    });
 
     // insert some sample data into the database
     countryHelper.populate()
@@ -21,6 +28,7 @@ before(async function () {
 });
 
 after(async function () {
+    // clear the database on test exit
     console.log("Tearing down test suite")
     await country.countrySchema.deleteMany({}, function(err) {
         return err
