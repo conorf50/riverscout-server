@@ -1,23 +1,15 @@
 
 // created with help from here:
 //https://stackoverflow.com/questions/50546533/unit-test-node-js-mongoose-mocha-chai-sinon
-var mongoose = require('mongoose');
-var countryHelper = require('./countryHelper')
-var groupHelper = require('./groupHelper')
+const mongoose = require('mongoose');
+const countryHelper = require('./countryHelper')
+const groupHelper = require('./groupHelper')
 mongoose.set('debug', true);
 
-var country = require('../schemas/countrySchema')
-
-
-/*
-Test db details.
-
-db.createUser({
-    user: 'npm',
-    pwd: 'unittesting',
-    roles: [{ role: 'readWrite', db:'npm_test_db'}]
-})
-*/
+const country = require('../schemas/countrySchema')
+const deviceGroups = require('../schemas/deviceGroups')
+const sigfoxReadings = require('../schemas/sigfoxDataSchema')
+//const country = require('../schemas/countrySchema')
 
 
 before(async function () {
@@ -28,8 +20,19 @@ before(async function () {
     groupHelper.populate()
 });
 
-after(function () {
+after(async function () {
     console.log("Tearing down test suite")
+    await country.countrySchema.deleteMany({}, function(err) {
+        return err
+    });
+    await deviceGroups.deviceGroupSchema.deleteMany({}, function(err) {
+        return err
+    });
+    await sigfoxReadings.sigfox_device.deleteMany({}, function(err) {
+        return err
+    });
+    console.log("Clearing data")
+
 })
 
 

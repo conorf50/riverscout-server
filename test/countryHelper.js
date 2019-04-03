@@ -26,7 +26,8 @@ var countryHelper = {} // do this so we can use the same name for module.exports
 countryHelper.populate = function() {
     console.log("inserting groups");
     
-    return country.countrySchema.insertMany(data, function(err) {
+    return country.countrySchema.insertMany(data, 
+        function(err) {
         return err
     });
 }
