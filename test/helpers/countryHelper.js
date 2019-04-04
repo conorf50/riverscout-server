@@ -17,7 +17,7 @@ mongoose.set('debug', true);
 var countryHelper = {} // do this so we can use the same name for module.exports while adding functions
 // new functions will be accessed by caling DAO.<newFunc>
 countryHelper.populate = function() {
-    console.log("inserting groups");
+    console.log("inserting countries");
     
     return country.countrySchema.insertMany(data, 
         function(err) {
@@ -27,7 +27,7 @@ countryHelper.populate = function() {
 
 
 countryHelper.purge = function() {
-    console.log("purging groups");
+    console.log("purging countries");
     return country.countrySchema.deleteMany({},
         function(err) {
         return err

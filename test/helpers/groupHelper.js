@@ -24,8 +24,13 @@ groupHelper.populate = function() {
         return err
     });
 }
-
-
+groupHelper.purge = function() {
+    console.log("purging groups");
+    return group.deviceGroupSchema.deleteMany({},
+        function(err) {
+        return err
+    });
+}
 
 module.exports = groupHelper;
 
