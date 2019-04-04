@@ -22,6 +22,7 @@ describe('Get All Countries', function() {
           .end(function(err, res) { 
             console.log("Response" + JSON.stringify(res.text))
             expect(res.statusCode).to.equal(200); 
+            
             //console.log(res.text.countryCode);
             done(); 
           }); 

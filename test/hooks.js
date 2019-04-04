@@ -21,27 +21,27 @@ before(async function () {
     console.log("Clearing existing data and starting tests.")
     
     // cleaner than a promise. Needs 'await' because it's a background operation
-    await country.countrySchema.deleteMany({}, function(err) {
-        return err
-    });
-    await deviceGroups.deviceGroupSchema.deleteMany({}, function(err) {
-        return err
-    });
-
+    // await country.countrySchema.deleteMany({}, function(err) {
+    //     return err
+    // });
+    // await deviceGroups.deviceGroupSchema.deleteMany({}, function(err) {
+    //     return err
+    // });
+    await countryHelper.purge()
     // insert some sample data into the database
-    countryHelper.populate()
-    groupHelper.populate()
+    await countryHelper.populate()
+    //groupHelper.populate()
 });
 
 after(async function () {
     // clear the database on test exit
     console.log("Tearing down test suite")
-    await country.countrySchema.deleteMany({}, function(err) {
-        return err
-    });
-    await deviceGroups.deviceGroupSchema.deleteMany({}, function(err) {
-        return err
-    });
+    // await country.countrySchema.deleteMany({}, function(err) {
+    //     return err
+    // });
+    // await deviceGroups.deviceGroupSchema.deleteMany({}, function(err) {
+    //     return err
+    // });
 
     console.log("Clearing data")
 

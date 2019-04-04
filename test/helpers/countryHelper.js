@@ -26,6 +26,14 @@ countryHelper.populate = function() {
 }
 
 
+countryHelper.purge = function() {
+    console.log("purging groups");
+    return country.countrySchema.deleteMany({},
+        function(err) {
+        return err
+    });
+}
+
 
 module.exports = countryHelper;
 
