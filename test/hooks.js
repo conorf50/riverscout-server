@@ -1,26 +1,36 @@
 
 // created with help from here:
 //https://stackoverflow.com/questions/50546533/unit-test-node-js-mongoose-mocha-chai-sinon
-var mongoose = require('mongoose');
-var CountrySchema = require('../schemas/countrySchema')
+const mongoose = require('mongoose');
+
+// require the helper files
+const countryHelper = require('./helpers/countryHelper');
+const groupHelper = require('./helpers/groupHelper');
+
+// enable Mongoose debugging
 mongoose.set('debug', true);
 
 
+// require some of our schemas
+const country = require('../schemas/countrySchema');
+const deviceGroups = require('../schemas/deviceGroups');
 
-before(function(){
-console.log("This is a setup hook!")
-mongoose.connect('mongodb://riverscout:riverscout@10.10.1.10/riverscout',{ useNewUrlParser: true }); // set up the connection with the above IP address ,user and password  
-// Get Mongoose to use the global promise library
-mongoose.Promise = global.Promise;
-//Get the default connection
-var db = mongoose.connection;
 
-//Bind connection to error event (to get notification of connection errors)
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-})
+// this will run before the tests.
+before(async function () {
+    console.log("Clearing existing data and starting tests.")
+    // start with a clean slate
+    await countryHelper.purge()
+    await groupHelper.purge()
+    // insert some sample data into the database
+    await countryHelper.populate()
+    await groupHelper.populate()
+});
 
-after(function(){
+after(async function () {
+    // clear the database on test exit
     console.log("Tearing down test suite")
+
 })
 
 

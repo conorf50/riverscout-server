@@ -4,6 +4,12 @@
 
 'use strict';
 
+//const http = require("http");
+//const _request = request.agent(app.app);
+//const keepAliveAgent = new http.Agent({ keepAlive: true, keepAliveMsecs: 90000, timeout: 1200000, maxSockets:10, maxFreeSockets:10 });
+
+
+
 var app = require('../../app'),
   chai = require('chai'),
   request = require('supertest');
@@ -14,8 +20,10 @@ describe('Get All Countries', function() {
       it('should get all countries', function(done) { 
         request(app) .get('/api/getAllCountries')
           .end(function(err, res) { 
-            console.log("Response" + JSON.stringify(res))
+            console.log("Response" + JSON.stringify(res.text))
             expect(res.statusCode).to.equal(200); 
+            
+            //console.log(res.text.countryCode);
             done(); 
           }); 
       });

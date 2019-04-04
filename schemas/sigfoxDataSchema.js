@@ -14,7 +14,7 @@ var Schema = mongoose.Schema;
 // This document contains the measurements for a gauge, so there will ba many of these for one device
 const sigfoxDataSchema = new Schema({
   // The deviceUID references the _id field in the 'devceSchema' collection
-  deviceUID : {type: mongoose.Schema.Types.ObjectId(), ref: 'deviceModel', required = true}, // name of the model we want to reference
+  deviceUID : {type: mongoose.Types.ObjectId, ref: 'deviceModel', required : true}, // name of the model we want to reference
   rawHexData: String, // store the raw data for cases where data has been incorrectly mapped
   waterTemp: mongoose.Types.Decimal128,
   pH: mongoose.Types.Decimal128,
@@ -24,11 +24,11 @@ const sigfoxDataSchema = new Schema({
 
 
 // Compile model from schema
-var sigfoxDataSchema = mongoose.model('sigfox_device', sigfoxDataSchema);
+var sigfoxSchema = mongoose.model('sigfox_device', sigfoxDataSchema);
 
 // Export the entire schema to access it from other files
 // so we can access it with Schema.<schema name> once it has been required
 
 module.exports = {
-      sigfox_device: sigfoxDeviceSchema
+      sigfox_device: sigfoxSchema
     };
