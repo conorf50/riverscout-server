@@ -10,12 +10,6 @@ const groupHelper = require('./helpers/groupHelper');
 // enable Mongoose debugging
 mongoose.set('debug', true);
 
-
-// require some of our schemas
-const country = require('../schemas/countrySchema');
-const deviceGroups = require('../schemas/deviceGroups');
-
-
 // this will run before the tests.
 before(async function () {
     console.log("Clearing existing data and starting tests.")
@@ -30,7 +24,8 @@ before(async function () {
 after(async function () {
     // clear the database on test exit
     console.log("Tearing down test suite")
-
+    await countryHelper.purge()
+    await groupHelper.purge()
 })
 
 

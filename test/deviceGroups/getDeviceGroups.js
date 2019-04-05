@@ -15,7 +15,7 @@ describe('Get All Device Groups for code "IE" ', function() {
         request(app) .get('/api/getAllDeviceGroups?countryCode=IE')
           .end(function(err, res) { 
             expect(res.statusCode).to.equal(200); 
-            console.log("Device Groups = " + res)
+            console.log("RES = " + typeof(res))
             done(); 
           }); 
       });
