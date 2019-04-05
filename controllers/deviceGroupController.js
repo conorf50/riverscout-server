@@ -36,6 +36,7 @@ function addDeviceGroup(req, res) {
 
     groupDAO.findDeviceGroups(countryCode)
     .then(x => {
+      res.set('Content-Type', 'application/json');
       res.send(x)
     })
     .catch(err =>{ 

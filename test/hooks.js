@@ -23,9 +23,9 @@ before(async function () {
 
 after(async function () {
     // clear the database on test exit
-    console.log("Tearing down test suite")
-    await countryHelper.purge()
-    await groupHelper.purge()
+    // console.log("Tearing down test suite")
+    // await countryHelper.purge()
+    // await groupHelper.purge()
 })
 
 
