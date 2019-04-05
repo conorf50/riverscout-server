@@ -7,7 +7,7 @@
     },
     { 
         "groupLat": 69.6969,
-        "groupLong": -4.2000,
+        "groupLong": -4.2002,
         "groupName": "Unit Test Group #2",
         "countryCode": "UK"   
     },
@@ -28,6 +28,12 @@
         "groupLong": -6.9989,
         "groupName": "Unit Test Group #5",
         "countryCode": "IE"   
+    },
+    { 
+        "groupLat": 57.4322,
+        "groupLong": -9.1002,
+        "groupName": "Unit Test Group #6",
+        "countryCode": "UK"   
     }
 
 ]
