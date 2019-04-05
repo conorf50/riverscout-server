@@ -11,7 +11,7 @@ var expect = chai.expect;
 var util = require('util') // import for the util.inspect method
 
 
-describe('Get All Device Groups for country code "IE" ', function() {
+describe('Get different device groups ', function() {
     describe('#GET / deviceGroups', function() { 
       it('should get all device groups for the country code "IE"', function(done) { 
         request(app) .get('/api/getAllDeviceGroups?countryCode=IE')
@@ -42,9 +42,7 @@ describe('Get All Device Groups for country code "IE" ', function() {
           }); 
       });
     });
-  });
 
-  describe('Get All Device Groups for country code "UK" ', function() {
     describe('#GET / deviceGroups', function() { 
       it('should get all device groups for the country code "UK"', function(done) { 
         request(app) .get('/api/getAllDeviceGroups?countryCode=UK')
@@ -70,10 +68,8 @@ describe('Get All Device Groups for country code "IE" ', function() {
           }); 
       });
     });
-  });
 
 
-  describe('Get All Device Groups for country code "FR" ', function() {
     describe('#GET / deviceGroups', function() { 
       it('should get all device groups for the country code "FR"', function(done) { 
         request(app) .get('/api/getAllDeviceGroups?countryCode=FR')
