@@ -19,7 +19,6 @@ var groupHelper = {} // do this so we can use the same name for module.exports w
 // new functions will be accessed by caling DAO.<newFunc>
 groupHelper.populate = function() {
     console.log("inserting groups");
-    group.deviceGroupSchema.deleteMany({})
     return group.deviceGroupSchema.insertMany(data, function(err) {
         return err
     });

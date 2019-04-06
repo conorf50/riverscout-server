@@ -40,6 +40,8 @@ function addOrUpdateCountry(req, res) {
     // see the following question for this solution: https://stackoverflow.com/questions/41199718/return-promises-instead-of-res-jsondata-in-node-js 
     countryDAO.getAllCountries()
     .then(function(x) {
+      //console.log("Database Response  : " + x)
+      //res.set('Content-Type', 'application/json');
       res.send(x)
     })
     .catch(function(err) {

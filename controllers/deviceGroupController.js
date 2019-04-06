@@ -35,8 +35,9 @@ function addDeviceGroup(req, res) {
     console.log(`Country Code ${countryCode}`)
 
     groupDAO.findDeviceGroups(countryCode)
-    .then(result => {
-      res.send(result)
+    .then(x => {
+      res.set('Content-Type', 'application/json');
+      res.send(x)
     })
     .catch(err =>{ 
       res.json(err) // catch and return the error 'err' to the user
