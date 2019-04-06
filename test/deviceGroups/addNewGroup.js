@@ -30,7 +30,7 @@ var util = require('util') // import for the util.inspect method
       });
 
 
-      it('should add a new group country code "FR"', function(done) { 
+      it('should add a new group for country code "FR"', function(done) { 
         request(app) .post('/api/addOrUpdateDeviceGroup')
         .send({
             "groupLat":24.2341,
@@ -50,21 +50,40 @@ var util = require('util') // import for the util.inspect method
     });
 
 
-    describe('Updating the location for an existing device group', function() { 
+    describe('Updating the name for an existing device group', function() { 
       it('should update the first group', function(done) { 
         request(app) .post('/api/addOrUpdateDeviceGroup')
         .send({
-            "groupLat":62.6341,
-            "groupLong": -8.9922,
-            "groupName": "New Group",
-            "countryCode": "IE"
-        })
+          "groupLat":64.2341,
+          "groupLong": -7.9922,
+          "groupName": "Updated Group",
+          "countryCode": "IE"
+      })
           .end(function(err, res) { 
             //console.log("RES = " + util.inspect(res.body))
-            // expect(res.body.groupName).to.equal("New Group");
-            // expect(res.body.countryCode).to.equal("IE");
-            // expect(res.body.groupLat.$numberDecimal).to.not.equal("64.2341");
-            // expect(res.body.groupLong.$numberDecimal).to.not.equal("-7.9922");
+            expect(res.body.groupName).to.equal("Updated Group");
+            expect(res.body.countryCode).to.equal("IE");
+            expect(res.body.groupLat.$numberDecimal).to.equal("64.2341");
+            expect(res.body.groupLong.$numberDecimal).to.equal("-7.9922");
+            done(); 
+          }); 
+      });
+    });
+
+    describe('try to change another group name to "Updated Group"', function() { 
+      it('should update the first group', function(done) { 
+        request(app) .post('/api/addOrUpdateDeviceGroup')
+        .send({
+          "groupLat":24.2341,
+          "groupLong": -2.9922,
+          "groupName": "Updated Group",
+          "countryCode": "FR"
+      })
+          .end(function(err, res) { 
+            console.log("RES = " + util.inspect(res.body))
+            // Mongo will throw an error because we are trying to create a new document with this key
+            expect(res.body.errorMessage.code).to.equal(11000);
+
             done(); 
           }); 
       });

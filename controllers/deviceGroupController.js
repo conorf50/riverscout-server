@@ -18,7 +18,8 @@ function addDeviceGroup(req, res) {
     .then(function(x) {
       res.json(x)
     })
-    .catch(err =>{ 
+    .catch(err =>{
+       
       res.json(err) // catch and return the error 'err' to the user
     })
     // these are template strings
