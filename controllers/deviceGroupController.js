@@ -2,8 +2,6 @@
 var groupDAO = require('../lib/deviceGroupDAO');
 //var Promise = require('bluebird');
 
-console.log(require('../lib/deviceGroupDAO'))
-
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
 function addDeviceGroup(req, res) {
@@ -18,7 +16,8 @@ function addDeviceGroup(req, res) {
     .then(function(x) {
       res.json(x)
     })
-    .catch(err =>{ 
+    .catch(err =>{
+       
       res.json(err) // catch and return the error 'err' to the user
     })
     // these are template strings
