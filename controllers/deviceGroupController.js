@@ -2,8 +2,6 @@
 var groupDAO = require('../lib/deviceGroupDAO');
 //var Promise = require('bluebird');
 
-console.log(require('../lib/deviceGroupDAO'))
-
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
 function addDeviceGroup(req, res) {
