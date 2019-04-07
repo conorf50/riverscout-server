@@ -96,18 +96,18 @@ describe('Get different device groups ', function() {
   describe('Get groups by name ', function() {
     describe('get a group by name', function() { 
       it('should get a group called "Unit Test Group #3"', function(done) { 
-        request(app) .get('/api/findDeviceGroup?groupName=Unit Test Group #3')
+        request(app) .get('/api/findDeviceGroup?groupName=Unit%20Test%20Group%20%233')
           .end(function(err, res) { 
             expect(res.statusCode).to.equal(200); 
             // check the names of each group
-            expect(res.body.groupName).to.equal("Unit Test Group #3");
+            expect(res.body[0].groupName).to.equal("Unit Test Group #3");
 
             //check if all the countrycodes match
-            expect(res.body.countryCode).to.equal("FR");
+            expect(res.body[0].countryCode).to.equal("FR");
 
             // check the locations of each of the groups
-            expect(res.body.groupLat.$numberDecimal).to.equal("45.5232");
-            expect(res.body.groupLong.$numberDecimal).to.equal("1.3453");
+            expect(res.body[0].groupLat.$numberDecimal).to.equal("45.5232");
+            expect(res.body[0].groupLong.$numberDecimal).to.equal("1.3453");
 
             //console.log("RES = " + util.inspect(res.body))
             done(); 
@@ -121,16 +121,15 @@ describe('Get different device groups ', function() {
           .end(function(err, res) { 
             expect(res.statusCode).to.equal(200); 
             // check the names of each group
-            expect(res.body.groupName).to.equal("Unit Test Group #1");
+            expect(res.body[0].groupName).to.equal("Unit Test Group #1");
 
             //check if all the countrycodes match
-            expect(res.body.countryCode).to.equal("IE");
+            expect(res.body[0].countryCode).to.equal("IE");
 
             // check the locations of each of the groups
             expect(res.body[0].groupLat.$numberDecimal).to.equal("52.4542");
             expect(res.body[0].groupLong.$numberDecimal).to.equal("-7.3453");
 
-            //console.log("RES = " + util.inspect(res.body))
             done(); 
           }); 
       });

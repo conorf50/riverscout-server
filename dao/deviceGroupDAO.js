@@ -59,7 +59,7 @@ deviceGroupDAO.createDeviceGroup = function(groupName, groupLatitude, groupLongi
 
 
 
-deviceGroupDAO.findDeviceGroups = function(countryCode) {
+deviceGroupDAO.findDeviceGroupByCode = function(countryCode) {
     return GroupSchema.deviceGroupSchema.find({
                 countryCode : countryCode
             })

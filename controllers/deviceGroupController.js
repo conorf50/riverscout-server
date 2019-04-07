@@ -33,7 +33,7 @@ function addDeviceGroup(req, res) {
     let countryCode = input.countryCode.value
     console.log(`Country Code ${countryCode}`)
 
-    groupDAO.findDeviceGroups(countryCode)
+    groupDAO.findDeviceGroupByCode(countryCode)
     .then(x => {
       res.set('Content-Type', 'application/json');
       res.send(x)
@@ -49,6 +49,7 @@ function addDeviceGroup(req, res) {
 
   function deleteDeviceGroup(req, res, next) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
+    let input = req.swagger.params
     let groupName = input.groupName.value
     console.log(`Deleting device group  '${groupName}'`)
 
@@ -64,13 +65,24 @@ function addDeviceGroup(req, res) {
 
 
   function findGroupByName(req, res, next) {
-    res.json("Dummy Controller!")
-    // this sends back a JSON response which is a single string
+    // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
+    let input = req.swagger.params
+    let groupName = input.groupName.value
+
+
+    groupDAO.findGroupByName(groupName)
+    .then(x => {
+      res.set('Content-Type', 'application/json');
+      res.send(x)
+    })
+    .catch(err =>{ 
+      res.json(err) // catch and return the error 'err' to the user
+    })
   }
 
   function getDevicesInGroup(req, res, next) {
-    res.json("Dummy Controller!")
-    // this sends back a JSON response which is a single string
+    // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
+    res.json("Dummy Controller")
   }
   module.exports = {
     addDeviceGroup: addDeviceGroup,
