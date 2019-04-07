@@ -1,5 +1,5 @@
 'use strict'
-var groupDAO = require('../lib/deviceGroupDAO');
+var groupDAO = require('../dao/deviceGroupDAO');
 //var Promise = require('bluebird');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
@@ -48,8 +48,18 @@ function addDeviceGroup(req, res) {
   }
 
   function deleteDeviceGroup(req, res, next) {
-    res.json("Dummy Controller!")
-    // this sends back a JSON response which is a single string
+    // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
+    let groupName = input.groupName.value
+    console.log(`Deleting device group  '${groupName}'`)
+
+    groupDAO.deleteDeviceGroup(groupName)
+    .then(x => {
+      res.set('Content-Type', 'application/json');
+      res.send(x)
+    })
+    .catch(err =>{ 
+      res.json(err) // catch and return the error 'err' to the user
+    })
   }
 
 

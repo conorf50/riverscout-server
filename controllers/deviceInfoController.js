@@ -1,5 +1,5 @@
 'use strict'
-var deviceDAO = require('../lib/deviceDAO');
+var deviceDAO = require('../dao/deviceDAO');
 //var Promise = require('bluebird');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
