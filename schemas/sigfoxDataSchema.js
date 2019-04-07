@@ -17,7 +17,6 @@ const sigfoxDataSchema = new Schema({
   deviceUID : {type: mongoose.Types.ObjectId, ref: 'deviceModel', required : true}, // name of the model we want to reference
   rawHexData: String, // store the raw data for cases where data has been incorrectly mapped
   waterTemp: mongoose.Types.Decimal128,
-  pH: mongoose.Types.Decimal128,
   timestamp: Date,
   waterLevel: mongoose.Types.Decimal128
 });
