@@ -52,6 +52,12 @@ function addDeviceGroup(req, res) {
     // this sends back a JSON response which is a single string
   }
 
+
+  function findGroupByName(req, res, next) {
+    res.json("Dummy Controller!")
+    // this sends back a JSON response which is a single string
+  }
+
   function getDevicesInGroup(req, res, next) {
     res.json("Dummy Controller!")
     // this sends back a JSON response which is a single string
@@ -60,6 +66,7 @@ function addDeviceGroup(req, res) {
     addDeviceGroup: addDeviceGroup,
     getDeviceGroups: getDeviceGroups,
     deleteDeviceGroup: deleteDeviceGroup,
-    getDevicesInGroup: getDevicesInGroup
+    getDevicesInGroup: getDevicesInGroup,
+    findGroupByName: findGroupByName
     };
   

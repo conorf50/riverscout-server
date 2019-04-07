@@ -184,7 +184,7 @@ paths:
       parameters:
         - name: groupName
           in: query
-          description: Return all groups in this country
+          description: The name of the group to search for.
           schema:
             type: string
           required: true  
