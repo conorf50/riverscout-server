@@ -49,7 +49,7 @@ deviceGroupDAO.createDeviceGroup = function(groupName, groupLatitude, groupLongi
         return(out)
     })
     .catch(function(err){
-
+        // prettify the error message
         return ({
             errorMessage : err
         })
@@ -59,15 +59,44 @@ deviceGroupDAO.createDeviceGroup = function(groupName, groupLatitude, groupLongi
 
 
 
-deviceGroupDAO.findDeviceGroups = function(countryCode) {
+deviceGroupDAO.findDeviceGroupByCode = function(countryCode) {
     return GroupSchema.deviceGroupSchema.find({
                 countryCode : countryCode
             })
     .then(function(data) {
         return (data) ;
+    })
+    .catch(err =>{
+        return err;
     });
 }
 
+deviceGroupDAO.findGroupByName = function(groupName) {
+    return GroupSchema.deviceGroupSchema.find({
+                groupName : groupName
+            })
+    .then(function(data) {
+        return (data) ;
+    })
+    .catch(err =>{
+        return err;
+    });
+}
+
+deviceGroupDAO.deleteDeviceGroup = function(groupName){
+    // add device checking in here
+    return CountrySchema.countrySchema.deleteOne({
+        groupName: groupName
+    })
+    .then(function(z){
+        return z
+    })
+    .catch(function(err){
+        return(
+            err.message
+        )
+    })
+}
 
 module.exports = deviceGroupDAO;
 

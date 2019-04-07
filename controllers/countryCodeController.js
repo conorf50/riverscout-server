@@ -1,5 +1,5 @@
 'use strict'
-var countryDAO = require('../lib/countryDAO');
+var countryDAO = require('../dao/countryDAO');
 //var Promise = require('bluebird');
 
 //console.log(require('../lib/groupDAO'))

@@ -1,5 +1,5 @@
 'use strict'
-var sigfoxDAO = require('../lib/sigfoxReadingDAO');
+var sigfoxDAO = require('../dao/sigfoxReadingDAO');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
