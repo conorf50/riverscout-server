@@ -24,7 +24,7 @@ var Schema = mongoose.Schema;
 
 
 
-const DeviceSchema = new Schema({
+const DeviceAttributeSchema = new Schema({
     //_id: mongoose.Schema.Types.ObjectId(), // use this as a unique ID for a gauge even if it has been replaced. This is referenced in 'sigfoxDataSchema.js"
     displayName: String,                 // name to display on front end. Eg: "Suir at Kilsheelan Bridge"
     gpsLat: mongoose.Types.Decimal128, // see http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-decimal.html
@@ -46,11 +46,10 @@ const DeviceSchema = new Schema({
   });
   
 // Compile model from schema
-var DeviceModel = mongoose.model('deviceModel', DeviceSchema);
+var DeviceModel = mongoose.model('deviceModel', DeviceAttributeSchema);
 
 // Export the entire schema to access it from other files
 // so we can access it with Schema.<schema name> once it has been required
-
 module.exports = {
-      deviceSchema : DeviceModel
+      deviceAttributeSchema : DeviceModel
     };

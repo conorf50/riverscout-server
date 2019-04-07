@@ -23,11 +23,11 @@ const sigfoxDataSchema = new Schema({
 
 
 // Compile model from schema
-var sigfoxSchema = mongoose.model('sigfox_device', sigfoxDataSchema);
+var sigfoxSchema = mongoose.model('sigfox_device_measurement', sigfoxDataSchema);
 
 // Export the entire schema to access it from other files
 // so we can access it with Schema.<schema name> once it has been required
 
 module.exports = {
-      sigfox_device: sigfoxSchema
+      sigfox_device_measurement: sigfoxSchema
     };
