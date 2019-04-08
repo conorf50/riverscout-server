@@ -4,7 +4,7 @@
 
 var mongoose = require('mongoose');
 // import all of the dependencies (schemas)
-var group = require('../../schemas/deviceGroups')
+var group = require('../../schemas/deviceGroupSchema')
 
 // this is a JSON file containing test data to insert into the database.
 var data = require("../files/groups.json")
