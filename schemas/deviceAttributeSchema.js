@@ -10,9 +10,21 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-// This collection contains info for a device like it's install data
-// and maintainence schedules. There is one of these per device.
-const DeviceSchema = new Schema({
+/* 
+    This collection contains info for a device 
+    like it's install data and maintainence schedules.
+    There is one of these per device.
+    
+    The Sigfox or LTE-M measurements are posted to the API and the
+    Sigfox/LTE-M device ID is matched with the one in this table
+    and the measurements are stored in the relevant collection for device
+    measurements 
+*/
+
+
+
+
+const DeviceAttributeSchema = new Schema({
     //_id: mongoose.Schema.Types.ObjectId(), // use this as a unique ID for a gauge even if it has been replaced. This is referenced in 'sigfoxDataSchema.js"
     displayName: String,                 // name to display on front end. Eg: "Suir at Kilsheelan Bridge"
     gpsLat: mongoose.Types.Decimal128, // see http://thecodebarbarian.com/a-nodejs-perspective-on-mongodb-34-decimal.html
@@ -27,18 +39,17 @@ const DeviceSchema = new Schema({
     downlinkEnabled: Boolean, // can the device recieve data
     groupIDS : [{type: mongoose.Schema.Types.ObjectId, ref: 'groupModel', required : true}], // array of references to 'groupModel' in 'deviceGroups.js'
     activeStatus: Boolean, // is the device currently active?
-    deviceHistory: {     // array containing all the history associated with a device. Empty on creation, not specified through add device API
+    deviceHistory: [{     // array containing all the history associated with a device. Empty on creation, not specified through add device API.
       timestamp: Date,
       notes: String,
-    }
+    }]
   });
   
 // Compile model from schema
-var DeviceModel = mongoose.model('deviceModel', DeviceSchema);
+var DeviceModel = mongoose.model('deviceModel', DeviceAttributeSchema);
 
 // Export the entire schema to access it from other files
 // so we can access it with Schema.<schema name> once it has been required
-
 module.exports = {
-      deviceSchema : DeviceModel
+      deviceAttributeSchema : DeviceModel
     };

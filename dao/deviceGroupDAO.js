@@ -12,7 +12,7 @@ db.createUser({
 
 var mongoose = require('mongoose');
 // import all of the dependencies (schemas)
-var GroupSchema = require('../schemas/deviceGroups')
+var GroupSchema = require('../schemas/deviceGroupSchema')
 // require Bluebird instead of native Prommises
 var Promise = require('bluebird');
 // enable Mongoose's debig mode for easier problem solving

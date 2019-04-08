@@ -12,7 +12,7 @@ db.createUser({
 
 var mongoose = require('mongoose');
 // import all of the dependencies (schemas)
-var DeviceSchema = require('../schemas/deviceSchema')
+var DeviceSchema = require('../schemas/deviceAttributeSchema')
 
 // enable Mongoose's debig mode for easier problem solving
 // see https://stackoverflow.com/questions/18762264/log-all-queries-that-mongoose-fire-in-the-application

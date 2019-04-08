@@ -37,7 +37,6 @@ function addUpdateDevice(req, res) {
   }
   
   function deleteDeviceInfo(req, res) {
-    //res.json("Dummy Controller!")
     var deviceID = req.swagger.params.deviceID.value
 
     deviceDAO.deleteDeviceData(deviceID)
@@ -54,7 +53,6 @@ function addUpdateDevice(req, res) {
 
 
   // function getDevicesForGroupID(req, res, next) {
-  //   res.json("Dummy Controller!")
   //   // this sends back a JSON response which is a single string
   // }
   

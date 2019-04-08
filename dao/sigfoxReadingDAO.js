@@ -12,7 +12,7 @@ db.createUser({
 
 var mongoose = require('mongoose');
 // import all of the dependencies (schemas)
-var Schemas = require('../schemas/schema')
+var sigfoxDataSchema = require('../schemas/sigfoxDataSchema')
 // require Bluebird instead of native Prommises
 var Promise = require('bluebird');
 // enable Mongoose's debig mode for easier problem solving
@@ -23,26 +23,34 @@ mongoose.set('debug', true);
 
 var dao = {} // do this so we can use the same name for module.exports while adding functions
 // new functions will be accessed by caling DAO.<newFunc>
-dao.saveDeviceData = function(deviceID, timestamp, data) {
-    return new Schemas.RiverscoutSchema({
-                deviceID : deviceID,
-                data : data,
+/*
+  deviceUID : {type: mongoose.Types.ObjectId, ref: 'deviceModel', required : true}, // name of the model we want to reference
+  rawHexData: String, // store the raw data for cases where data has been incorrectly mapped
+  waterTemp: mongoose.Types.Decimal128,
+  timestamp: Date,
+  waterLevel: mongoose.Types.Decimal128
+*/
+dao.saveDeviceData = function(deviceUID,rawHexData, waterLevel, waterTemp,timestamp) {
+    return new sigfoxDataSchema.sigfox_device_measurement({
+                deviceUID : deviceUID,
+                rawHexData : rawHexData,
+                waterLevel: waterLevel,
+                waterTemp: waterTemp,
                 timestamp : timestamp
             })
     .save()
     .then(function(y) {
-        // note to self: don't use 'data' as a variable name
         return y // no need to resolve the promise
     })
-    .catch(x => {
-        return x
+    .catch(err => {
+        return err
     })
 }
 
 
-dao.getDeviceData = function(deviceID, timestampGt, timestampLt) {
+dao.getDeviceData = function(deviceUID, timestampGt, timestampLt) {
     return Schemas.RiverscoutSchema.find({
-                deviceID : deviceID,
+                deviceUID : deviceUID,
                 "timestamp":{
                     $gt: timestampGt,
                     $lt: timestampLt
@@ -50,10 +58,10 @@ dao.getDeviceData = function(deviceID, timestampGt, timestampLt) {
             })
     .then(function(data) {
         console.log(data)
-        return Promise.resolve(data) ;
+        return data ;
     })
-    .catch(x => {
-        return x
+    .catch(err => {
+        return err
     })
 }
 
