@@ -1,4 +1,4 @@
-'use strict' // from Mozilla developer tutorial
+'use strict' // from Mozilla developer tutorial - causes errors to crash the program
 
 /*
   Author : Conor Farrell (+ others where noted)
