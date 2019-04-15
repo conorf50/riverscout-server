@@ -16,7 +16,7 @@ mongoose.set('debug', true);
 
 
 var groupHelper = {} // do this so we can use the same name for module.exports while adding functions
-// new functions will be accessed by caling DAO.<newFunc>
+// new functions will be accessed by caling <filename>.<newFunc> (eg: DAO.addDevice)
 groupHelper.populate = function() {
     console.log("inserting groups");
     return group.deviceGroupSchema.insertMany(data, function(err) {
