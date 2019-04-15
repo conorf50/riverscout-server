@@ -17,7 +17,7 @@ function addOrUpdateCountry(req, res) {
       //res.json(x)  // just respond with this 
       res.json({
         "message" : "Created new / updated existing country",
-        //"countryName": x.countryName,
+        "countryName": x.countryName,
         "countryCode" : x.code,
         "databaseID" : x._id
       })

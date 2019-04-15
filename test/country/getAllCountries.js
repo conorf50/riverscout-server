@@ -8,13 +8,14 @@ var app = require('../../app'),
   chai = require('chai'),
   request = require('supertest');
   
+var util = require("util")  
 var expect = chai.expect;
 describe('Get All Countries', function() {
     describe('#GET / getAllCountries', function() { 
       it('should get all countries', function(done) { 
         request(app) .get('/api/getAllCountries')
           .end(function(err, res) { 
-            //console.log("Response" + JSON.stringify(res.text))
+            console.log("Countries" +  res.text);
             expect(res.statusCode).to.equal(200); 
             
             //console.log(res.text.countryCode);
@@ -24,3 +25,23 @@ describe('Get All Countries', function() {
     });
   });
 
+  describe('add a new country called "NewCountryLand"', function() { 
+    it('should update the first group', function(done) { 
+      request(app) .post('/api/addOrUpdateCountry')
+      .send({
+        "countryName":"NewCountryLand",
+        "code": "NC"
+    })
+        .end(function(err, res) { 
+          console.log("RES = " + util.inspect(res.body))
+          // this should succeed because we have no group matching this name anymore
+          expect(res.body.countryName).to.equal("NewCountryLand");
+          expect(res.body.countryCode).to.equal("NC");
+          
+
+          //expect(res.body.groupLat.$numberDecimal).to.equal("24.2341");
+          //expect(res.body.groupLong.$numberDecimal).to.equal("-2.9922");
+          done(); 
+        }); 
+    });
+  });
