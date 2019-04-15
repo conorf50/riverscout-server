@@ -13,15 +13,14 @@ db.createUser({
 var mongoose = require('mongoose');
 // import all of the dependencies (schemas)
 var sigfoxDataSchema = require('../schemas/sigfoxDataSchema')
-// require Bluebird instead of native Prommises
-var Promise = require('bluebird');
+
 // enable Mongoose's debig mode for easier problem solving
 // see https://stackoverflow.com/questions/18762264/log-all-queries-that-mongoose-fire-in-the-application
 mongoose.set('debug', true);
 
 
 
-var dao = {} // do this so we can use the same name for module.exports while adding functions
+var sigfoxDAO = {} // do this so we can use the same name for module.exports while adding functions
 // new functions will be accessed by caling DAO.<newFunc>
 /*
   deviceUID : {type: mongoose.Types.ObjectId, ref: 'deviceModel', required : true}, // name of the model we want to reference
@@ -30,7 +29,7 @@ var dao = {} // do this so we can use the same name for module.exports while add
   timestamp: Date,
   waterLevel: mongoose.Types.Decimal128
 */
-dao.saveDeviceData = function(deviceUID,rawHexData, waterLevel, waterTemp,timestamp) {
+sigfoxDAO.saveDeviceData = function(deviceUID,rawHexData, waterLevel, waterTemp,timestamp) {
     return new sigfoxDataSchema.sigfox_device_measurement({
                 deviceUID : deviceUID,
                 rawHexData : rawHexData,
@@ -48,7 +47,7 @@ dao.saveDeviceData = function(deviceUID,rawHexData, waterLevel, waterTemp,timest
 }
 
 
-dao.getDeviceData = function(deviceUID, timestampGt, timestampLt) {
+sigfoxDAO.getDeviceData = function(deviceUID, timestampGt, timestampLt) {
     return Schemas.RiverscoutSchema.find({
                 deviceUID : deviceUID,
                 "timestamp":{
@@ -66,4 +65,32 @@ dao.getDeviceData = function(deviceUID, timestampGt, timestampLt) {
 }
 
 
-module.exports = dao;
+sigfoxDAO.deleteOneReading = function(readingID){
+    return sigfoxDataSchema.sigfox_device_measurement.deleteOne({
+        _id: readingID
+    })
+    .then(function(z){
+        return z
+    })
+    .catch(function(err){
+        return(
+            err.message
+        )
+    })
+}
+
+sigfoxDAO.deleteAllReadinga = function(deviceID){
+    return sigfoxDataSchema.sigfox_device_measurement.deleteMany({
+        deviceUID: deviceID
+    })
+    .then(function(z){
+        return z
+    })
+    .catch(function(err){
+        return(
+            err.message
+        )
+    })
+}
+
+module.exports = sigfoxDAO;
