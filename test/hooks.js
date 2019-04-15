@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 // require the helper files - makes the code cleaner
 const countryHelper = require('./helpers/countryHelper'); // own work
 const groupHelper = require('./helpers/groupHelper');  // own work
+const sigfoxDeviceHelper = require('./helpers/sigfoxReadingHelper');  // own work
+
 
 // enable Mongoose debugging (from Mozilla tutorial)
 mongoose.set('debug', true);
@@ -16,18 +18,20 @@ before(async function () {
     // use async await to make things predictable
     console.log("Clearing existing data and starting tests.")
     // start with a clean slate by clearing any existing data in the test
-    await countryHelper.purge()
-    await groupHelper.purge()
+    await countryHelper.purge();
+    await groupHelper.purge();
+    await sigfoxDeviceHelper.purge();
     // insert some sample data into the database (see the JSON files in the 'files' directory)
-    await countryHelper.populate()
-    await groupHelper.populate()
+    await countryHelper.populate();
+    await groupHelper.populate();
 });
 
 after(async function () {
     // clear the database on test exit
     console.log("Tearing down test suite and purging database")
-    await countryHelper.purge()
-    await groupHelper.purge()
+    await countryHelper.purge();
+    await groupHelper.purge();
+    await sigfoxDeviceHelper.purge();
 })
 
 

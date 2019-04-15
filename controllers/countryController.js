@@ -1,11 +1,22 @@
-'use strict'
-var countryDAO = require('../dao/countryDAO');
-//var Promise = require('bluebird');
+'use strict' // from Mozilla developer tutorial
 
-//console.log(require('../lib/groupDAO'))
+/*
+  Author : Conor Farrell (+ others where noted)
 
-// date library that allows relative dates like .fromNow, subtract X days and more
-var moment = require('moment');
+  This file is the controller that handles countries. The YAML file hooks into 
+  the controllers defined here to provide functionality.
+
+  The database operations are handled by a seperate file called 'countryDAO'
+  located in the 'dao' directory. This allows the code to remain mostly unchanged
+  in the event of migrating to a different database as the only parts that need to 
+  be rewritten would be the DAO functions. It also makes the code cleaner and easier to
+  modify by hiding the database operations behind a simple interface.
+*/
+
+
+
+var countryDAO = require('../dao/countryDAO'); // refernce our DAO file
+
 function addOrUpdateCountry(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
     let input = req.swagger.params
@@ -25,30 +36,20 @@ function addOrUpdateCountry(req, res) {
     .catch(function(err){
       res.json(err)
     })
-
-    // these are template strings
-    // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
-    //res.json(`Country: '${countryName}' created with code ${code} and ID ${countryID}`);
-    //res.json("Created")
   }
 
 
 
 
   function getAllCountries(req, res) {
-    // fetch the data using a call to the DAO and then handle the response using a Promise
-    // see the following question for this solution: https://stackoverflow.com/questions/41199718/return-promises-instead-of-res-jsondata-in-node-js 
+    // fetch the data using a call to the DAO and then return the response to the user via Express
     countryDAO.getAllCountries()
     .then(function(x) {
-      //console.log("Database Response  : " + x)
-      //res.set('Content-Type', 'application/json');
       res.send(x)
     })
     .catch(function(err) {
-      //Promise.reject(err);
-      res.json(err)
+       res.json(err)
     });
-    // this sends back a JSON response which is a single string
   }
   
 
@@ -58,13 +59,14 @@ function addOrUpdateCountry(req, res) {
     var countryID = input.countryID.value
     countryDAO.deleteCountry(countryID)
     .then(function(y){
-      res.send(y); // res.json not working?
+      res.send(y); 
     })
     .catch(function(err){
       res.json(err)
     })
   }
 
+  // define our function names to export.
   module.exports = {
     addOrUpdateCountry: addOrUpdateCountry,
     getAllCountries: getAllCountries,

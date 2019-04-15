@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: API
   description: OpenAPI v3 powered API for Riverscout
-  version: '0.5'
+  version: '0.0.5'
 paths:
 
   ###########################
@@ -79,8 +79,7 @@ paths:
                   description: "Whether the device allows data to be sent to it or not."
                   
         description: >-
-          Pushes Sigfox device data to the database with the device ID and
-          timestamp. 
+         Adds or updates a device's info
 
 
   /getInfoForDeviceID:
