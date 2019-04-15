@@ -29,8 +29,8 @@ var oasDoc = jsyaml.safeLoad(spec);
 
 var options_object = {
   controllers: path.join(__dirname, './controllers'),
-  //loglevel: 'debug', // default is 'info', specify  'debug' to enable debugging
-  loglevel: 'info', // default is 'info', specify  'debug' to enable debugging
+  loglevel: 'debug', // default is 'info', specify  'debug' to enable debugging
+  //loglevel: 'info', // default is 'info', specify  'debug' to enable debugging
   strict: false,
   router: true,
   validator: true

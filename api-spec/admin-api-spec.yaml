@@ -526,7 +526,7 @@ paths:
   
   /addOrUpdateCountry:
     post:
-      x-swagger-router-controller: countryCodeController
+      x-swagger-router-controller: countryController
       tags:
         - Country Codes and Info
       description: Adds a new 'country' with a name and a country code. If the specified country exists, it will be updated instead.
@@ -554,7 +554,7 @@ paths:
           
   /getAllCountries:
     get:
-      x-swagger-router-controller: countryCodeController
+      x-swagger-router-controller: countryController
       operationId: getAllCountries
       tags:
         - Country Codes and Info
@@ -575,7 +575,7 @@ paths:
                 
   /deleteCountry:
     delete:
-      x-swagger-router-controller: countryCodeController
+      x-swagger-router-controller: countryController
       operationId: deleteCountry
       tags:
         - Country Codes and Info
