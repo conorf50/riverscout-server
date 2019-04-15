@@ -11,7 +11,7 @@ paths:
   
   /addOrUpdateDevice:
     post:
-      x-swagger-router-controller: deviceInfoController
+      x-swagger-router-controller: deviceAttributeController
       tags:
         - Device Info
       description: Adds a new device (Sigfox/NBIoT) or if the device already exists, updates it's details
@@ -84,7 +84,7 @@ paths:
 
   /getInfoForDeviceID:
     get:
-      x-swagger-router-controller: deviceInfoController
+      x-swagger-router-controller: deviceAttributeController
       operationId: getDeviceInfo
       tags:
         - Device Info
@@ -113,7 +113,7 @@ paths:
               
   /deleteDeviceInfo:
     delete:
-      x-swagger-router-controller: deviceInfoController
+      x-swagger-router-controller: deviceAttributeController
       operationId: deleteDeviceInfo
       tags:
         - Device Info
