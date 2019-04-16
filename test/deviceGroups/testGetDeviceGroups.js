@@ -14,7 +14,7 @@ var util = require('util') // import for the util.inspect method
 describe('Get different device groups ', function() {
     describe('#GET / deviceGroups', function() { 
       it('should get all device groups for the country code "IE"', function(done) { 
-        request(app) .get('/api/getAllDeviceGroups?countryCode=IE')
+        request(app).get('/api/getAllDeviceGroups?countryCode=IE')
           .end(function(err, res) { 
             expect(res.statusCode).to.equal(200); 
             // check the names of each group
@@ -135,5 +135,4 @@ describe('Get different device groups ', function() {
       });
     });
     
-
   });
