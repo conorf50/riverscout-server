@@ -1,14 +1,18 @@
 'use strict'
-var deviceDAO = require('../dao/deviceDAO');
-//var Promise = require('bluebird');
 
-// date library that allows relative dates like .fromNow, subtract X days and more
-var moment = require('moment');
+/*
+  Author: Conor Farrell (+ others where noted)
+  For an overview of the structure of this file, refer to controllers/countryController.js
+  as the controllers all work in the same basic fashion.
+*/
+
+var deviceDAO = require('../dao/deviceDAO');
+
+
 function addUpdateDevice(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-    var input = req.swagger.params.undefined.value
-    //console.log("displayName" + input.displayName)
-    // console.log(input.undefined.value.timestamp)
+    // 'input' contains all the fields for a new device.
+    var input = req.swagger.params.undefined.value // send the whole object to the DAO.
     deviceDAO.saveDeviceData(input)
     .then(function(x){
       res.json(x);
@@ -21,11 +25,9 @@ function addUpdateDevice(req, res) {
 
 
   function getDeviceInfo(req, res, next) {
-
     var deviceID = req.swagger.params.deviceID.value
     
-    // fetch the data using a call to the DAO and then handle the response using a Promise
-    // see the following question for this solution: https://stackoverflow.com/questions/41199718/return-promises-instead-of-res-jsondata-in-node-js 
+    // fetch the data using a call to the DAO and then return the result to the user
     deviceDAO.getDeviceData(deviceID)
     .then(function(data) {
       res.send(data)
@@ -46,9 +48,7 @@ function addUpdateDevice(req, res) {
     .catch(function(err) {
       res.json(err)
     });
-
-
-  }
+}
 
 
 

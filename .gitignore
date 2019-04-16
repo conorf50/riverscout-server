@@ -1,3 +1,5 @@
 node_modules/
 node_nodules
 .gitconfig
+.nyc_output/
+coverage/

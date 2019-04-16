@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: API
   description: OpenAPI v3 powered API for Riverscout
-  version: '0.5'
+  version: '0.0.5'
 paths:
 
   ###########################
@@ -11,7 +11,7 @@ paths:
   
   /addOrUpdateDevice:
     post:
-      x-swagger-router-controller: deviceInfoController
+      x-swagger-router-controller: deviceAttributeController
       tags:
         - Device Info
       description: Adds a new device (Sigfox/NBIoT) or if the device already exists, updates it's details
@@ -79,13 +79,12 @@ paths:
                   description: "Whether the device allows data to be sent to it or not."
                   
         description: >-
-          Pushes Sigfox device data to the database with the device ID and
-          timestamp. 
+         Adds or updates a device's info
 
 
   /getInfoForDeviceID:
     get:
-      x-swagger-router-controller: deviceInfoController
+      x-swagger-router-controller: deviceAttributeController
       operationId: getDeviceInfo
       tags:
         - Device Info
@@ -114,7 +113,7 @@ paths:
               
   /deleteDeviceInfo:
     delete:
-      x-swagger-router-controller: deviceInfoController
+      x-swagger-router-controller: deviceAttributeController
       operationId: deleteDeviceInfo
       tags:
         - Device Info
@@ -527,7 +526,7 @@ paths:
   
   /addOrUpdateCountry:
     post:
-      x-swagger-router-controller: countryCodeController
+      x-swagger-router-controller: countryController
       tags:
         - Country Codes and Info
       description: Adds a new 'country' with a name and a country code. If the specified country exists, it will be updated instead.
@@ -555,7 +554,7 @@ paths:
           
   /getAllCountries:
     get:
-      x-swagger-router-controller: countryCodeController
+      x-swagger-router-controller: countryController
       operationId: getAllCountries
       tags:
         - Country Codes and Info
@@ -576,7 +575,7 @@ paths:
                 
   /deleteCountry:
     delete:
-      x-swagger-router-controller: countryCodeController
+      x-swagger-router-controller: countryController
       operationId: deleteCountry
       tags:
         - Country Codes and Info

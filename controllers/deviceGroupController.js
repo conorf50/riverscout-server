@@ -1,9 +1,16 @@
 'use strict'
-var groupDAO = require('../dao/deviceGroupDAO');
-//var Promise = require('bluebird');
 
-// date library that allows relative dates like .fromNow, subtract X days and more
-var moment = require('moment');
+
+/*
+  Author: Conor Farrell (+ others where noted)
+  For an overview of the structure of this file, refer to controllers/countryController.js
+  as the controllers all work in the same basic fashion.
+*/
+
+
+
+var groupDAO = require('../dao/deviceGroupDAO');
+
 function addDeviceGroup(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
     let input = req.swagger.params
@@ -17,13 +24,8 @@ function addDeviceGroup(req, res) {
       res.json(x)
     })
     .catch(err =>{
-       
       res.json(err) // catch and return the error 'err' to the user
-    })
-    // these are template strings
-    // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
-    //res.json(`Group: '${groupName}' created with lat ${groupLatitude} and long ${groupLongitude}`);
-    
+    })   
   }
   
 
@@ -41,10 +43,6 @@ function addDeviceGroup(req, res) {
     .catch(err =>{ 
       res.json(err) // catch and return the error 'err' to the user
     })
-    // these are template strings
-    // see here: https://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format
-    //res.json(`Found all groups for country code: `);
-
   }
 
   function deleteDeviceGroup(req, res, next) {

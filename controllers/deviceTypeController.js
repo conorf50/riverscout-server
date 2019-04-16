@@ -1,27 +1,32 @@
 'use strict'
-var DeviceTypeDAO = require('../dao/deviceTypeDAO');
-//var Promise = require('bluebird');
 
-// date library that allows relative dates like .fromNow, subtract X days and more
-var moment = require('moment');
+
+/*
+  Author: Conor Farrell (+ others where noted)
+  For an overview of the structure of this file, refer to controllers/countryController.js
+  as the controllers all work in the same basic fashion.
+*/
+
+
+var DeviceTypeDAO = require('../dao/deviceTypeDAO');
+
 function addOrUpdateDeviceType(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
     var input = req.swagger.params
     console.log(input)
-    // console.log(input.undefined.value.timestamp)
-
   
     var deviceTypeName = input.undefined.value.deviceTypeName
     var deviceTypeDescription = input.undefined.value.deviceTypeDescription
     var deviceType = input.undefined.value.deviceType
-    console.log(`Creating new device type ${deviceTypeName} with desctiption ${deviceTypeDescription} of type ${deviceType}`)
-    // // save the data
+    console.log(`Creating new device type ${deviceTypeName} with description ${deviceTypeDescription} of type ${deviceType}`)
+    // save the data
     DeviceTypeDAO.createOrUpdateDeviceType(deviceTypeName, deviceTypeDescription,deviceType)
     .then(function(x){
       res.json(x);
     })
-    // this sends back a JSON response which is a single string
-    //res.json("Data added to database");
+    .catch(function(err) {
+      res.json(err)
+    })
   }
   
 
@@ -29,7 +34,10 @@ function addOrUpdateDeviceType(req, res) {
     // fetch the data
     DeviceTypeDAO.getAllDeviceTypes()
     .then(function(x){
-      res.send(x); // res.json not working?
+      res.send(x);
+    })
+    .catch(function(err) {
+      res.json(err)
     })
   }
 
@@ -50,7 +58,7 @@ function addOrUpdateDeviceType(req, res) {
 
 
   module.exports = {
-    // export the above function as 'addData' so we can use it in other modules
+    // export the above functions so we can use them in other modules
       addOrUpdateDeviceType: addOrUpdateDeviceType,
       getAllDeviceTypes: getAllDeviceTypes,
       deleteDeviceType: deleteDeviceType
