@@ -32,7 +32,6 @@ describe('Delete Countries', function() {
           request(app).delete('/api/deleteCountry?countryID='+testID)
             .end(function(err, res) { 
               expect(res.statusCode).to.equal(200); 
-              
               //console.log(res.text.countryCode);
               done(); 
             }); 
