@@ -60,14 +60,31 @@ function getSigfoxReadings(req, res) {
 
 
 function deleteSigfoxReading(req, res, next) {
-  res.json("Dummy Controller!")
-  // this sends back a JSON response which is a single string
+  var input = req.swagger.params
+  var readingID = input.readingID.value
+
+  sigfoxDAO.deleteOneReading(readingID)
+  .then(x =>{
+    res.json(x)
+  })
+  .catch(err =>{
+    res.json(err)
+  })
 }
 
 // delete all readings for a device
 function deleteAllSigfoxReadings(req, res, next) {
-  res.json("Dummy Controller!")
-  // this sends back a JSON response which is a single string
+  //res.json("Dummy Controller!")
+  var input = req.swagger.params
+  var deviceID = input.deviceID.value
+
+  sigfoxDAO.deleteAllReadings(readingID)
+  .then(x =>{
+    res.json(x)
+  })
+  .catch(err =>{
+    res.json(err)
+  })
 }
 
 module.exports = {
