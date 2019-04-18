@@ -8,10 +8,10 @@ var app = require('../../app'),
     chai = require('chai'),
     request = require('supertest');
 
+var expect = chai.expect;
 // we will get this ID from the database by making a GET request and selecting the first group that comes back.  
 let groupID = "";
-var util = require("util")
-var expect = chai.expect;
+
 
 
 
@@ -63,6 +63,7 @@ describe('Deleting Groups', function () {
                     /*
                         This response will output the following:
                         No error occurs, hence the ok:1 output
+                        but there will be no deleted entries
                         {
                             "n": 1,
                             "ok": 1,
