@@ -87,6 +87,7 @@ deviceDAO.getDeviceData = function(deviceID) {
 }
 
 deviceDAO.deleteDeviceData = function(deviceID){
+    // delete all data stored for a device including it's measurements!
     return DeviceSchema.deviceAttributeSchema.deleteOne({
         _id: deviceID
     })
