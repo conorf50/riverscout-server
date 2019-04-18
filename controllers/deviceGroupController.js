@@ -48,10 +48,10 @@ function addDeviceGroup(req, res) {
   function deleteDeviceGroup(req, res, next) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
     let input = req.swagger.params
-    let groupName = input.groupName.value
-    console.log(`Deleting device group  '${groupName}'`)
+    let deviceGroupID = input.deviceGroupID.value
+    console.log(`Deleting device group  '${deviceGroupID}'`)
 
-    groupDAO.deleteDeviceGroup(groupName)
+    groupDAO.deleteDeviceGroup(deviceGroupID)
     .then(x => {
       res.set('Content-Type', 'application/json');
       res.send(x)

@@ -85,10 +85,10 @@ deviceGroupDAO.findGroupByName = function(groupName) {
     });
 }
 
-deviceGroupDAO.deleteDeviceGroup = function(groupName){
-    // add device checking in here
-    return CountrySchema.countrySchema.deleteOne({
-        groupName: groupName
+deviceGroupDAO.deleteDeviceGroup = function(groupID){
+    // add device checking in here to fail if a group contains multiple devices
+    return GroupSchema.deviceGroupSchema.deleteOne({
+        _id: groupID
     })
     .then(function(z){
         return z
