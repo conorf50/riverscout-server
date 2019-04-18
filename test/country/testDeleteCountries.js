@@ -12,11 +12,29 @@ var app = require('../../app'),
 let testID = "";
 var util = require("util")
 var expect = chai.expect;
+
+
+// require the country helper file - clear existing data before we run these tests
+const countryHelper = require('../helpers/countryHelper'); // own work
+
+
+
 describe('Delete Countries', function () {
     describe('Get a country ID to delete', function () {
+        // refresh the database again after previous operations
+        // putting the before in here only allows it to run in this context and not before every test
+        // see: https://stackoverflow.com/questions/22762301/mocha-beforeeach-and-aftereach-during-testing
+
+        before(async function () {
+            console.log("MAKING DATA GREAT AGAIN")
+            await countryHelper.purge()
+            await countryHelper.populate();
+        })
+        
         it('should get all countries', function (done) {
             request(app).get('/api/getAllCountries')
                 .end(function (err, res) {
+                    console.log(util.inspect(res.body))
                     expect(res.statusCode).to.equal(200);
                     testID = res.body[0]._id;
                     console.log("Test country ID = " + testID)
