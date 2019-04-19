@@ -95,13 +95,21 @@ function deleteAllSigfoxReadings(req, res, next) {
 // https://dzone.com/articles/build-an-end-to-end-sigfox-gps-tracker-using-wia-a
 
 function parseSigfoxData(rawHexString) {
-  let latHex = rawHexString.slice(0, 8);
-  console.log("LATHEX" + latHex)
-  let longHex = rawHexString.slice(8);
-  console.log("LONGHEX" + longHex)
+  /*
+   the hex string contains up to 16 characters and the float value is stored in the 
+   first 8 characters. So we need to parse the first 8 characters and convert the value
+   from hex to decimal
+  */
+  let tempValHex = rawHexString.slice(0, 8);
+  console.log("LATHEX" + tempValHex)
+  let waterHtValHex = rawHexString.slice(8);
+  console.log("LONGHEX" + waterHtValHex)
   let result = {
-    latitude: Buffer(latHex, 'hex').readFloatLE(0).toFixed(4),
-    longitude: Buffer(longHex, 'hex').readInt8(0)
+    // toFixed = specify how many decimal places are wanted eg: 4 = .xxxx, 6 = .xxxxxx
+    // read a float out of the first string, specifying little endian as the encoding
+    waterTemp: Buffer.from(tempValHex, 'hex').readFloatLE(0).toFixed(4),
+    // parse the water height level byte as is to get a integer value
+    waterLevel: Buffer.from(waterHtValHex, 'hex').readUInt8(0)
   };
   return result;
 }
