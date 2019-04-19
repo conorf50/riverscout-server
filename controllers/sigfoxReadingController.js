@@ -16,26 +16,25 @@ function addSigfoxReading(req, res) {
   var input = req.swagger.params
   // we can access fields in the input object be calling
   // input.undefined.<field name>
+  var sigfoxID = input.undefined.value.sigfoxID
+  var rawHexString = input.undefined.value.rawHexString
+  var timestamp = input.undefined.value.timestamp
 
-  var device = input.undefined.value.device
-  var data = input.undefined.value.data
-  var tsString = input.undefined.value.timestamp
-  var tsInt = parseInt(tsString, 10) // specify a base of 10 as the second arg
+  // convert the string to a number
+  var tsInt = parseInt(timestamp, 10) // specify a base of 10 as the second arg. Moment needs a number to convert from UNIX to JS date
 
-  var momentTs = new moment.unix(tsInt); // important since we are recieving UTC unix timstamps from Sigfox
-  console.log("integer timestamp = " + tsInt)
-  console.log("converted moment = " + momentTs)
+  // create a new Date from the converted UNIX timestamp
+  var momentTs = new moment.unix(tsInt).utc(); // important since we are recieving UTC unix timstamps from Sigfox
+  //console.log("integer timestamp = " + tsInt)
+  //console.log("converted moment = " + momentTs)
   // save the data
-  sigfoxDAO.saveDeviceData(device, momentTs, data)
+  sigfoxDAO.saveDeviceData(sigfoxID, momentTs, rawHexString)
     .then(function (x) {
       res.json(x);
     })
     .catch(function (err) {
       res.json(err)
     })
-
-  // this sends back a JSON response which is a single string
-  // res.json("Data added to database");
 }
 
 
@@ -64,12 +63,12 @@ function deleteSigfoxReading(req, res, next) {
   var readingID = input.readingID.value
 
   sigfoxDAO.deleteOneReading(readingID)
-  .then(x =>{
-    res.json(x)
-  })
-  .catch(err =>{
-    res.json(err)
-  })
+    .then(x => {
+      res.json(x)
+    })
+    .catch(err => {
+      res.json(err)
+    })
 }
 
 // delete all readings for a device
@@ -79,12 +78,12 @@ function deleteAllSigfoxReadings(req, res, next) {
   var deviceID = input.deviceID.value
 
   sigfoxDAO.deleteAllReadings(readingID)
-  .then(x =>{
-    res.json(x)
-  })
-  .catch(err =>{
-    res.json(err)
-  })
+    .then(x => {
+      res.json(x)
+    })
+    .catch(err => {
+      res.json(err)
+    })
 }
 
 module.exports = {
