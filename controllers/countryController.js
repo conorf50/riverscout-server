@@ -25,7 +25,7 @@ function addOrUpdateCountry(req, res) {
 
     countryDAO.createOrUpdateCountry(countryName, code)
     .then(function(x) {
-      //res.json(x)  // just respond with this 
+      //make the response a little prettier
       res.json({
         "message" : "Created new / updated existing country",
         "countryName": x.countryName,

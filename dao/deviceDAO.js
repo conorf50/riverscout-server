@@ -40,7 +40,7 @@ deviceDAO.saveDeviceData = function(input) {
     let deviceHistory = input.deviceHistory
     console.log(`Saving or updating data for device: '${sigfoxID}' in groups ${groupIDS}`);
 
-    return  DeviceSchema.deviceSchema.findOneAndUpdate(
+    return DeviceSchema.deviceAttributeSchema.findOneAndUpdate(
         // search based on this criteria
         {
             sigfoxID: sigfoxID
@@ -77,7 +77,7 @@ deviceDAO.saveDeviceData = function(input) {
 
 
 deviceDAO.getDeviceData = function(deviceID) {
-    return DeviceSchema.deviceSchema.find({
+    return DeviceSchema.deviceAttributeSchema.find({
                 _id : deviceID
             })
     .then(function(data) {
@@ -87,7 +87,8 @@ deviceDAO.getDeviceData = function(deviceID) {
 }
 
 deviceDAO.deleteDeviceData = function(deviceID){
-    return DeviceSchema.deviceSchema.deleteOne({
+    // delete all data stored for a device including it's measurements!
+    return DeviceSchema.deviceAttributeSchema.deleteOne({
         _id: deviceID
     })
     // also delelte the measurements for this device

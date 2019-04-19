@@ -11,31 +11,34 @@ var sigfoxDAO = require('../dao/sigfoxReadingDAO');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
+var util = require("util")
+
+
 function addSigfoxReading(req, res) {
   // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
   var input = req.swagger.params
   // we can access fields in the input object be calling
   // input.undefined.<field name>
+  var sigfoxID = input.undefined.value.sigfoxID
+  var rawHexString = input.undefined.value.rawHexString
+  var timestamp = input.undefined.value.timestamp
 
-  var device = input.undefined.value.device
-  var data = input.undefined.value.data
-  var tsString = input.undefined.value.timestamp
-  var tsInt = parseInt(tsString, 10) // specify a base of 10 as the second arg
+  // convert the string to a number
+  var tsInt = parseInt(timestamp, 10) // specify a base of 10 as the second arg. Moment needs a number to convert from UNIX to JS date
 
-  var momentTs = new moment.unix(tsInt); // important since we are recieving UTC unix timstamps from Sigfox
-  console.log("integer timestamp = " + tsInt)
-  console.log("converted moment = " + momentTs)
+  // create a new Date from the converted UNIX timestamp
+  var momentTs = new moment.unix(tsInt).utc(); // important since we are recieving UTC unix timstamps from Sigfox
+  //console.log("integer timestamp = " + tsInt)
+  //console.log("converted moment = " + momentTs)
   // save the data
-  sigfoxDAO.saveDeviceData(device, momentTs, data)
+  console.log("Parsed SF Data" + util.inspect(parseSigfoxData(rawHexString)))
+  sigfoxDAO.saveDeviceData(sigfoxID, momentTs, rawHexString)
     .then(function (x) {
       res.json(x);
     })
     .catch(function (err) {
       res.json(err)
     })
-
-  // this sends back a JSON response which is a single string
-  // res.json("Data added to database");
 }
 
 
@@ -60,15 +63,59 @@ function getSigfoxReadings(req, res) {
 
 
 function deleteSigfoxReading(req, res, next) {
-  res.json("Dummy Controller!")
-  // this sends back a JSON response which is a single string
+  var input = req.swagger.params
+  var readingID = input.readingID.value
+
+  sigfoxDAO.deleteOneReading(readingID)
+    .then(x => {
+      res.json(x)
+    })
+    .catch(err => {
+      res.json(err)
+    })
 }
 
 // delete all readings for a device
 function deleteAllSigfoxReadings(req, res, next) {
-  res.json("Dummy Controller!")
-  // this sends back a JSON response which is a single string
+  //res.json("Dummy Controller!")
+  var input = req.swagger.params
+  var deviceID = input.deviceID.value
+
+  sigfoxDAO.deleteAllReadings(readingID)
+    .then(x => {
+      res.json(x)
+    })
+    .catch(err => {
+      res.json(err)
+    })
 }
+
+
+// Based on code available here:
+// https://dzone.com/articles/build-an-end-to-end-sigfox-gps-tracker-using-wia-a
+
+function parseSigfoxData(rawHexString) {
+  /*
+   the hex string contains up to 16 characters and the float value is stored in the 
+   first 8 characters. So we need to parse the first 8 characters and convert the value
+   from hex to decimal
+  */
+  let tempValHex = rawHexString.slice(0, 8);
+  console.log("TEMP-HEX" + tempValHex)
+  let waterHtValHex = rawHexString.slice(8);
+  console.log("LEVEL-HEX" + waterHtValHex)
+  let result = {
+    // toFixed = specify how many decimal places are wanted eg: 4 = .xxxx, 6 = .xxxxxx
+    // as specified in the deviceAttribute schema, we only need up to 4 decimal places
+    // see: https://nodejs.org/api/buffer.html
+    // read a float out of the first string, specifying little endian as the encoding
+    waterTemp: Buffer.from(tempValHex, 'hex').readFloatLE(0).toFixed(4),
+    // the water level value comes in as a little-endian 16 bit signed integer 
+    waterLevel: Buffer.from(waterHtValHex, 'hex').readInt16LE(0)
+  };
+  return result;
+}
+
 
 module.exports = {
   addSigfoxReading: addSigfoxReading,

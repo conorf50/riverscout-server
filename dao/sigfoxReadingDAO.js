@@ -29,19 +29,20 @@ var sigfoxDAO = {} // do this so we can use the same name for module.exports whi
   timestamp: Date,
   waterLevel: mongoose.Types.Decimal128
 */
-sigfoxDAO.saveDeviceData = function(deviceUID,rawHexData, waterLevel, waterTemp,timestamp) {
+// sigfoxID, momentTs, rawHexString
+sigfoxDAO.saveDeviceData = function(sigfoxID,momentTs, rawHexData) {
     return new sigfoxDataSchema.sigfox_device_measurement({
-                deviceUID : deviceUID,
+                deviceUID : sigfoxID, // todo fix this
                 rawHexData : rawHexData,
-                waterLevel: waterLevel,
-                waterTemp: waterTemp,
-                timestamp : timestamp
+                waterLevel: 231,
+                waterTemp: 11.2,
+                timestamp : momentTs
             })
     .save()
     .then(function(y) {
-        return y // no need to resolve the promise
+        return y
     })
-    .catch(err => {
+    .catch(function(err) {
         return err
     })
 }

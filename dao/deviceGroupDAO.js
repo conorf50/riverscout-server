@@ -58,7 +58,7 @@ deviceGroupDAO.createDeviceGroup = function(groupName, groupLatitude, groupLongi
 
 
 
-
+// find all groups by country code
 deviceGroupDAO.findDeviceGroupByCode = function(countryCode) {
     return GroupSchema.deviceGroupSchema.find({
                 countryCode : countryCode
@@ -71,7 +71,9 @@ deviceGroupDAO.findDeviceGroupByCode = function(countryCode) {
     });
 }
 
+// find a group by name
 deviceGroupDAO.findGroupByName = function(groupName) {
+    // consider adding 'fuzzy' search for this
     return GroupSchema.deviceGroupSchema.find({
                 groupName : groupName
             })
@@ -83,10 +85,10 @@ deviceGroupDAO.findGroupByName = function(groupName) {
     });
 }
 
-deviceGroupDAO.deleteDeviceGroup = function(groupName){
-    // add device checking in here
-    return CountrySchema.countrySchema.deleteOne({
-        groupName: groupName
+deviceGroupDAO.deleteDeviceGroup = function(groupID){
+    // add device checking in here to fail if a group contains multiple devices
+    return GroupSchema.deviceGroupSchema.deleteOne({
+        _id: groupID
     })
     .then(function(z){
         return z
