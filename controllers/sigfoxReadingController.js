@@ -101,15 +101,17 @@ function parseSigfoxData(rawHexString) {
    from hex to decimal
   */
   let tempValHex = rawHexString.slice(0, 8);
-  console.log("LATHEX" + tempValHex)
+  console.log("TEMP-HEX" + tempValHex)
   let waterHtValHex = rawHexString.slice(8);
-  console.log("LONGHEX" + waterHtValHex)
+  console.log("LEVEL-HEX" + waterHtValHex)
   let result = {
     // toFixed = specify how many decimal places are wanted eg: 4 = .xxxx, 6 = .xxxxxx
+    // as specified in the deviceAttribute schema, we only need up to 4 decimal places
+    
     // read a float out of the first string, specifying little endian as the encoding
     waterTemp: Buffer.from(tempValHex, 'hex').readFloatLE(0).toFixed(4),
-    // parse the water height level byte as is to get a integer value
-    waterLevel: Buffer.from(waterHtValHex, 'hex').readUInt8(0)
+    // the water level value comes in as a little-endian 16 bit signed integer 
+    waterLevel: Buffer.from(waterHtValHex, 'hex').readInt16LE(0)
   };
   return result;
 }
