@@ -107,7 +107,7 @@ function parseSigfoxData(rawHexString) {
   let result = {
     // toFixed = specify how many decimal places are wanted eg: 4 = .xxxx, 6 = .xxxxxx
     // as specified in the deviceAttribute schema, we only need up to 4 decimal places
-    
+    // see: https://nodejs.org/api/buffer.html
     // read a float out of the first string, specifying little endian as the encoding
     waterTemp: Buffer.from(tempValHex, 'hex').readFloatLE(0).toFixed(4),
     // the water level value comes in as a little-endian 16 bit signed integer 
