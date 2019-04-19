@@ -34,8 +34,8 @@ sigfoxDAO.saveDeviceData = function(sigfoxID,momentTs, rawHexData) {
     return new sigfoxDataSchema.sigfox_device_measurement({
                 deviceUID : sigfoxID, // todo fix this
                 rawHexData : rawHexData,
-                waterLevel: rawHexData,
-                waterTemp: rawHexData,
+                waterLevel: 231,
+                waterTemp: 11.2,
                 timestamp : momentTs
             })
     .save()

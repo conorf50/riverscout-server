@@ -11,6 +11,9 @@ var sigfoxDAO = require('../dao/sigfoxReadingDAO');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
+var util = require("util")
+
+
 function addSigfoxReading(req, res) {
   // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
   var input = req.swagger.params
@@ -28,6 +31,7 @@ function addSigfoxReading(req, res) {
   //console.log("integer timestamp = " + tsInt)
   //console.log("converted moment = " + momentTs)
   // save the data
+  console.log("Parsed SF Data" + util.inspect(parseSigfoxData(rawHexString)))
   sigfoxDAO.saveDeviceData(sigfoxID, momentTs, rawHexString)
     .then(function (x) {
       res.json(x);
@@ -85,6 +89,23 @@ function deleteAllSigfoxReadings(req, res, next) {
       res.json(err)
     })
 }
+
+
+// Based on code available here:
+// https://dzone.com/articles/build-an-end-to-end-sigfox-gps-tracker-using-wia-a
+
+function parseSigfoxData(rawHexString) {
+  let latHex = rawHexString.slice(0, 8);
+  console.log("LATHEX" + latHex)
+  let longHex = rawHexString.slice(8);
+  console.log("LONGHEX" + longHex)
+  let result = {
+    latitude: Buffer(latHex, 'hex').readFloatLE(0).toFixed(4),
+    longitude: Buffer(longHex, 'hex').readInt8(0)
+  };
+  return result;
+}
+
 
 module.exports = {
   addSigfoxReading: addSigfoxReading,
