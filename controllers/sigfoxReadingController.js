@@ -110,8 +110,14 @@ function parseSigfoxData(rawHexString) {
     // see: https://nodejs.org/api/buffer.html
     // read a float out of the first string, specifying little endian as the encoding
     waterTemp: Buffer.from(tempValHex, 'hex').readFloatLE(0).toFixed(4),
-    // the water level value comes in as a little-endian 16 bit signed integer 
-    waterLevel: Buffer.from(waterHtValHex, 'hex').readInt16LE(0)
+    // the water level value comes in as an unsigned integer
+    waterLevel: Buffer.from(waterHtValHex, 'hex').readUInt8(0)
+
+    // better encoding scheme that gives a wider range of values
+    // needs a code change on the device side to send the value as a 16 bit little endian int
+    //waterLevel: Buffer.from(waterHtValHex, 'hex').readInt16LE(0)
+
+
   };
   return result;
 }
