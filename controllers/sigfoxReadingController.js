@@ -31,8 +31,11 @@ function addSigfoxReading(req, res) {
   //console.log("integer timestamp = " + tsInt)
   //console.log("converted moment = " + momentTs)
   // save the data
-  console.log("Parsed SF Data" + util.inspect(parseSigfoxData(rawHexString)))
-  sigfoxDAO.saveDeviceData(sigfoxID, momentTs, rawHexString)
+  var convertedData = parseSigfoxData(rawHexString)
+  var waterLevel = convertedData.waterLevel
+  var waterTemp = convertedData.waterTemp
+
+  sigfoxDAO.saveDeviceData(sigfoxID, momentTs, rawHexString, waterLevel, waterTemp)
     .then(function (x) {
       res.json(x);
     })
