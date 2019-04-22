@@ -10,6 +10,8 @@
 
 
 var groupDAO = require('../dao/deviceGroupDAO');
+// import the device DAO so we can find devices that have a group ID
+var deviceDAO = require("../dao/deviceDAO")
 
 function addDeviceGroup(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
@@ -79,8 +81,17 @@ function addDeviceGroup(req, res) {
   }
 
   function getDevicesInGroup(req, res, next) {
-    // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-    res.json("Dummy Controller")
+    let input = req.swagger.params
+
+    let groupID = input.groupID.value
+
+    deviceDAO.findDevicesInGroup(groupID)
+    .then(x => {
+      res.send(x)
+    })
+    .catch(err =>{ 
+      res.json(err) // catch and return the error 'err' to the user
+    })
   }
   module.exports = {
     addDeviceGroup: addDeviceGroup,
