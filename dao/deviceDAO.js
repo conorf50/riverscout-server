@@ -106,5 +106,20 @@ deviceDAO.deleteDeviceData = function(deviceID){
 }
 
 
+deviceDAO.findDevicesInGroup = function(groupID) {
+    // return DeviceSchema.deviceAttributeSchema.find({
+    //             _id : groupID
+    //         })
+    // .then(function(data) {
+    //     console.log(data)
+    //     return (data) ;
+    // });
+
+    return DeviceSchema.deviceAttributeSchema.aggregate([
+        {$unwind: "$groupIDS"},
+        {$match: {"groupIDS": mongoose.Types.ObjectId(groupID)}}
+    ]
+    )
+}
 
 module.exports = deviceDAO;

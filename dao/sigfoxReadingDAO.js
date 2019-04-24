@@ -49,7 +49,7 @@ sigfoxDAO.saveDeviceData = function(sigfoxID,momentTs, rawHexData, waterLevel, w
 
 
 sigfoxDAO.getDeviceData = function(deviceUID, timestampGt, timestampLt) {
-    return Schemas.RiverscoutSchema.find({
+return sigfoxDataSchema.sigfox_device_measurement.find({
                 deviceUID : deviceUID,
                 "timestamp":{
                     $gt: timestampGt,
