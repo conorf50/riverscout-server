@@ -83,6 +83,22 @@ deviceDAO.getDeviceData = function(deviceID) {
     .then(function(data) {
         console.log(data)
         return (data) ;
+    })
+    .catch(err => {
+        res.json(err)
+    });
+}
+
+deviceDAO.findDevicesInCountry = function(countryCode) {
+    return DeviceSchema.deviceAttributeSchema.find({
+                countryCode : countryCode
+            })
+    .then(function(data) {
+        console.log(data)
+        return (data) ;
+    })
+    .catch(err => {
+        res.json(err)
     });
 }
 
@@ -120,6 +136,7 @@ deviceDAO.findDevicesInGroup = function(groupID) {
         {$match: {"groupIDS": mongoose.Types.ObjectId(groupID)}}
     ]
     )
+    
 }
 
 module.exports = deviceDAO;

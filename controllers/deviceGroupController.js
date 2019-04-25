@@ -93,11 +93,29 @@ function addDeviceGroup(req, res) {
       res.json(err) // catch and return the error 'err' to the user
     })
   }
+
+
+
+  function getDevicesInCountry(req, res, next) {
+    let input = req.swagger.params
+
+    let countryCode = input.countryCode.value
+
+    deviceDAO.findDevicesInCountry(countryCode)
+    .then(x => {
+      res.send(x)
+    })
+    .catch(err =>{ 
+      res.json(err) // catch and return the error 'err' to the user
+    })
+  }
+
   module.exports = {
     addDeviceGroup: addDeviceGroup,
     getDeviceGroups: getDeviceGroups,
     deleteDeviceGroup: deleteDeviceGroup,
     getDevicesInGroup: getDevicesInGroup,
-    findGroupByName: findGroupByName
+    findGroupByName: findGroupByName,
+    getDevicesInCountry: getDevicesInCountry
     };
   
