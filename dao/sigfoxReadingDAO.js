@@ -80,7 +80,7 @@ sigfoxDAO.deleteOneReading = function(readingID){
     })
 }
 
-sigfoxDAO.deleteAllReadinga = function(deviceID){
+sigfoxDAO.deleteAllReadings = function(deviceID){
     return sigfoxDataSchema.sigfox_device_measurement.deleteMany({
         deviceUID: deviceID
     })

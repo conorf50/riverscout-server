@@ -84,7 +84,7 @@ function deleteAllSigfoxReadings(req, res, next) {
   var input = req.swagger.params
   var deviceID = input.deviceID.value
 
-  sigfoxDAO.deleteAllReadings(readingID)
+  sigfoxDAO.deleteAllReadings(deviceID)
     .then(x => {
       res.json(x)
     })
