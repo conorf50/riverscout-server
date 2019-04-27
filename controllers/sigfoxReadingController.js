@@ -103,24 +103,22 @@ function parseSigfoxData(rawHexString) {
    first 8 characters. So we need to parse the first 8 characters and convert the value
    from hex to decimal
   */
-  let tempValHex = rawHexString.slice(0, 8);
-  console.log("TEMP-HEX" + tempValHex)
-  let waterHtValHex = rawHexString.slice(8);
-  console.log("LEVEL-HEX" + waterHtValHex)
+  let tempValHex = rawHexString.slice(0, 8); // slice the first 8 characters
+  //console.log("TEMP-HEX" + tempValHex)
+  let waterHtValHex = rawHexString.slice(8); // slice from the  8th character until the end
+  //console.log("LEVEL-HEX" + waterHtValHex)
   let result = {
     // toFixed = specify how many decimal places are wanted eg: 4 = .xxxx, 6 = .xxxxxx
     // as specified in the deviceAttribute schema, we only need up to 4 decimal places
     // see: https://nodejs.org/api/buffer.html
     // read a float out of the first string, specifying little endian as the encoding
     waterTemp: Buffer.from(tempValHex, 'hex').readFloatLE(0).toFixed(4),
-    // the water level value comes in as an unsigned integer
+    // the water level value comes in as an unsigned integer, so we just read it as a uint
     waterLevel: Buffer.from(waterHtValHex, 'hex').readUInt8(0)
 
     // better encoding scheme that gives a wider range of values
     // needs a code change on the device side to send the value as a 16 bit little endian int
     //waterLevel: Buffer.from(waterHtValHex, 'hex').readInt16LE(0)
-
-
   };
   return result;
 }
