@@ -40,9 +40,8 @@ var options_object = {
 oasTools.configure(options_object);
 
 oasTools.initialize(oasDoc, app, function() {
-  http.createServer(app).listen(serverPort, function() {    await countryHelper.purge();
-    await groupHelper.purge();
-    await sigfoxDeviceHelper.purge();
+  http.createServer(app).listen(serverPort, function() {   
+
     console.log("App running at http://localhost:" + serverPort);
     console.log("________________________________________________________________");
     if (options_object.docs !== false) {
@@ -50,7 +49,7 @@ oasTools.initialize(oasDoc, app, function() {
       console.log("________________________________________________________________");
     }
   });
-  
+
     mongoose.connect('mongodb://riverscout:riverscout@10.10.1.10/riverscout',{ useNewUrlParser: true }); // set up the connection with the above IP address ,user and password  
     // Get Mongoose to use the global promise library
     mongoose.Promise = global.Promise;
