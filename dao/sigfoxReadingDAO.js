@@ -22,13 +22,7 @@ mongoose.set('debug', true);
 
 var sigfoxDAO = {} // do this so we can use the same name for module.exports while adding functions
 // new functions will be accessed by caling DAO.<newFunc>
-/*
-  deviceUID : {type: mongoose.Types.ObjectId, ref: 'deviceModel', required : true}, // name of the model we want to reference
-  rawHexData: String, // store the raw data for cases where data has been incorrectly mapped
-  waterTemp: mongoose.Types.Decimal128,
-  timestamp: Date,
-  waterLevel: mongoose.Types.Decimal128
-*/
+
 // sigfoxID, momentTs, rawHexString
 sigfoxDAO.saveDeviceData = function(sigfoxID,momentTs, rawHexData, waterLevel, waterTemp) {
     return new sigfoxDataSchema.sigfox_device_measurement({
@@ -49,11 +43,14 @@ sigfoxDAO.saveDeviceData = function(sigfoxID,momentTs, rawHexData, waterLevel, w
 
 
 sigfoxDAO.getDeviceData = function(deviceUID, timestampGt, timestampLt) {
+
+    // find measurements for the selected device between 'timestampGt' and 'timestampLt'
+    
 return sigfoxDataSchema.sigfox_device_measurement.find({
                 deviceUID : deviceUID,
                 "timestamp":{
-                    $gt: timestampGt,
-                    $lt: timestampLt
+                    $gt: timestampGt, // greater than this date
+                    $lt: timestampLt // less than this date
                 }
             })
     .then(function(data) {
@@ -67,6 +64,7 @@ return sigfoxDataSchema.sigfox_device_measurement.find({
 
 
 sigfoxDAO.deleteOneReading = function(readingID){
+    // delete one reading matching the ID specified
     return sigfoxDataSchema.sigfox_device_measurement.deleteOne({
         _id: readingID
     })
@@ -81,6 +79,7 @@ sigfoxDAO.deleteOneReading = function(readingID){
 }
 
 sigfoxDAO.deleteAllReadings = function(deviceID){
+    
     return sigfoxDataSchema.sigfox_device_measurement.deleteMany({
         deviceUID: deviceID
     })

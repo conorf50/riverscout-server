@@ -1,12 +1,8 @@
 /*
 This file interfaces with the MongoDB instance through Mongoose
+and handles operations for countries
 
-DB DETAILS on db 'riverscout'
-db.createUser({
-    user: 'riverscout',
-    pwd: 'riverscout',
-    roles: [{ role: 'readWrite', db:'riverscout'}]
-})
+
 
 */
 
@@ -23,60 +19,59 @@ mongoose.set('debug', true);
 
 var countryDAO = {} // do this so we can use the same name for module.exports while adding functions
 // new functions will be accessed by caling DAO.<newFunc>
-countryDAO.createOrUpdateCountry = function(countryName, code) {
+countryDAO.createOrUpdateCountry = function (countryName, code) {
     console.log(`Creating or updating country: '${countryName}' with code ${code}`);
-    
+
     // attempt to find the group first
-    return  CountrySchema.countrySchema.findOneAndUpdate(
-        // search based on this criteria
+    return CountrySchema.countrySchema.findOneAndUpdate(
+        // search based on this criteria.
         {
-            countryName : countryName
+            countryName: countryName // name must be unique
         },
         // if the above returns a document, update that document, otherwise insert a new one
         {
-                countryName : countryName,
-                code : code
-            },
-       {
-           upsert: true,
-           new: true   
+            countryName: countryName,
+            code: code
+        },
+        {
+            upsert: true,
+            new: true // will create a new country if none exists
         }) // should update an existing document otherwise it will insert a new one
-    .then(function(x) {
-        //console.log("Response from DB" + x)
-        return(x)
-    })
-    .catch(function(err){
-        return(err)
-    });
+        .then(function (x) {
+            //console.log("Response from DB" + x)
+            return (x)
+        })
+        .catch(function (err) {
+            return (err)
+        });
 }
 
 
 
-countryDAO.getAllCountries = function(){
+countryDAO.getAllCountries = function () {
     return CountrySchema.countrySchema.find({})
-    .select('_id countryName code')
-    //.select('deviceType _id deviceTypeDescription deviceTypeName') // 'project' these fields only
-    .then(function(z){
-        return z
-    })
-    .catch(err => {
-        return(err.message)
-    })
+        .select('_id countryName code') // 'project' these fields only
+        .then(function (z) {
+            return z
+        })
+        .catch(err => {
+            return (err.message)
+        })
 }
 
 
-countryDAO.deleteCountry = function(countryID){
+countryDAO.deleteCountry = function (countryID) {
     return CountrySchema.countrySchema.deleteOne({
         _id: countryID
     })
-    .then(function(z){
-        return z
-    })
-    .catch(function(err){
-        return(
-            err.message
-        )
-    })
+        .then(function (z) {
+            return z
+        })
+        .catch(function (err) {
+            return (
+                err.message
+            )
+        })
 }
 
 
