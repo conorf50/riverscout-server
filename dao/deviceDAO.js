@@ -102,8 +102,8 @@ deviceDAO.findDevicesInCountry = function (countryCode) {
         { 
             // convert the nested data structure to a simple key:value structure
             $addFields: {
-                gpsLat: { "$toString": "$gpsLat" }, 
-                gpsLong: { "$toString": "$gpsLong" },
+                gpsLat: { "$toDouble": "$gpsLat" }, 
+                gpsLong: { "$toDouble": "$gpsLong" },
             }
         }]
     )
