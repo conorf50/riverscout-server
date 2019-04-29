@@ -103,6 +103,7 @@ function addDeviceGroup(req, res) {
 
     deviceDAO.findDevicesInCountry(countryCode)
     .then(x => {
+      
       res.send(x)
     })
     .catch(err =>{ 

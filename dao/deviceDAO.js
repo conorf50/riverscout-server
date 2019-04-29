@@ -86,16 +86,28 @@ deviceDAO.getDeviceData = function (deviceID) {
 }
 
 deviceDAO.findDevicesInCountry = function (countryCode) {
-    return DeviceSchema.deviceAttributeSchema.find({
-        countryCode: countryCode
-    })
-        .then(function (data) {
-            console.log(data)
-            return (data);
-        })
-        .catch(err => {
-            res.json(err)
-        });
+    return DeviceSchema.deviceAttributeSchema.aggregate([
+
+        /* 
+            Since the gps co-ordinates are stored as decimals, Mongo likes to return them
+            inside a structure that looks like this:
+
+            gpsLong: {$numberDecimal : <value>}
+            This is difficult to parse as the '$' symbol has special meaning in certain languages like Kotlin
+            This aggregate process simply returns it as a float value for easier parsing
+            Credit to DhineshYes answer at : https://stackoverflow.com/questions/53369688/extract-decimal-from-decimal128-with-mongoose-mongodb
+        */
+
+        { $match: { "countryCode": countryCode } }, // match all devices with the code
+        { 
+            // convert the nested data structure to a simple key:value structure
+            $addFields: {
+                gpsLat: { "$toString": "$gpsLat" }, 
+                gpsLong: { "$toString": "$gpsLong" },
+            }
+        }]
+    )
+
 }
 
 deviceDAO.deleteDeviceData = function (deviceID) {
