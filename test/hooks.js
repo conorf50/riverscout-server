@@ -31,9 +31,9 @@ before(async function () {
 after(async function () {
     // clear the database on test exit
     console.log("Tearing down test suite and purging database")
-    await countryHelper.purge();
-    await groupHelper.purge();
-    await sigfoxDeviceHelper.purge();
+    // await countryHelper.purge();
+    // await groupHelper.purge();
+    // await sigfoxDeviceHelper.purge();
 })
 
 

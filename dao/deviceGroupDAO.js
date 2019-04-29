@@ -60,15 +60,40 @@ deviceGroupDAO.createDeviceGroup = function(groupName, groupLatitude, groupLongi
 
 // find all groups by country code
 deviceGroupDAO.findDeviceGroupByCode = function(countryCode) {
-    return GroupSchema.deviceGroupSchema.find({
-                countryCode : countryCode
-            })
-    .then(function(data) {
-        return (data) ;
-    })
-    .catch(err =>{
-        return err;
-    });
+    // return GroupSchema.deviceGroupSchema.find({
+    //             countryCode : countryCode
+    //         })
+    // .then(function(data) {
+    //     return (data) ;
+    // })
+    // .catch(err =>{
+    //     return err;
+    // });
+
+
+    return GroupSchema.deviceGroupSchema.aggregate([
+
+        /* 
+            Since the gps co-ordinates are stored as decimals, Mongo likes to return them
+            inside a structure that looks like this:
+
+            gpsLong: {$numberDecimal : <value>}
+            This is difficult to parse as the '$' symbol has special meaning in certain languages like Kotlin
+            This aggregate process simply returns it as a float value for easier parsing
+            Credit to DhineshYes answer at : https://stackoverflow.com/questions/53369688/extract-decimal-from-decimal128-with-mongoose-mongodb
+        */
+
+        { $match: { "countryCode": countryCode } }, // match all devices with the code
+        { 
+            // convert the nested data structure to a simple key:value structure
+            $addFields: {
+                groupLat: { "$toDouble": "$groupLat" }, 
+                groupLong: { "$toDouble": "$groupLong" },
+            }
+        }]
+    )
+
+
 }
 
 // find a group by name
