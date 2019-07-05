@@ -1,6 +1,4 @@
-/*
-    Code adapted from the following tutorial : https://www.codementor.io/olatundegaruba/integration-testing-supertest-mocha-chai-6zbh6sefz
-*/
+
 
 'use strict'; // causes program to fail on syntax errors
 
@@ -25,12 +23,13 @@ describe('Delete Countries', function () {
         // putting the before in here only allows it to run in this context and not before every test
         // see: https://stackoverflow.com/questions/22762301/mocha-beforeeach-and-aftereach-during-testing
 
+        // using await/async because it forces Node to operate sequentially where it waits for 
+        // each operation to finish before starting a new one
         before(async function () {
-            console.log("MAKING DATA GREAT AGAIN")
-            await countryHelper.purge()
-            await countryHelper.populate();
+            await countryHelper.purge() // clear the countries
+            await countryHelper.populate(); // add new countries
         })
-        
+
         it('should get all countries', function (done) {
             request(app).get('/api/getAllCountries')
                 .end(function (err, res) {
@@ -96,3 +95,31 @@ describe('Delete Countries', function () {
     });
 
 });
+             
+
+
+    describe('Deleting the country again should fail', function () {
+        it('should fail to delete a record that does not exist', function (done) {
+            request(app).delete('/api/deleteCountry?countryID=' + testID)
+                .end(function (err, res) {
+                    expect(res.statusCode).to.equal(200);
+                    /*
+                        This response will output the following:
+                        No error occurs, hence the ok:1 output
+                        {
+                            "n": 1,
+                            "ok": 1,
+                            "deletedCount": 0
+                        }
+                    */
+                    expect(res.body.deletedCount).to.equal(0)
+                    expect(res.body.ok).to.equal(1);
+                    expect(res.body.n).to.equal(0);
+
+
+                    //console.log(res.text.countryCode);
+                    done();
+                });
+        });
+    });
+

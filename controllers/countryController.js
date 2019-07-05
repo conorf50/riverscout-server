@@ -11,6 +11,8 @@
   in the event of migrating to a different database as the only parts that need to 
   be rewritten would be the DAO functions. It also makes the code cleaner and easier to
   modify by hiding the database operations behind a simple interface.
+
+  All other controllers work in the same way.
 */
 
 
@@ -66,7 +68,8 @@ function addOrUpdateCountry(req, res) {
     })
   }
 
-  // define our function names to export.
+  // define our function names to export. This is so we can access the 
+  // functions defined here in other files
   module.exports = {
     addOrUpdateCountry: addOrUpdateCountry,
     getAllCountries: getAllCountries,

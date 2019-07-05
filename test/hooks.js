@@ -26,23 +26,14 @@ before(async function () {
     await groupHelper.populate();
 });
 
-// this will run before each test
-// beforeEach(async function(){
-//     // some tests were causing data consistency problems so we need to clear the database between tests
-//     await groupHelper.purge();
-//     await countryHelper.purge();
-//     // and repopulate it again
-//     await countryHelper.populate();
-//     await groupHelper.populate();
-// })
 
 // upon test completion/failure - run this
 after(async function () {
     // clear the database on test exit
     console.log("Tearing down test suite and purging database")
-    // await countryHelper.purge();
-    // await groupHelper.purge();
-    // await sigfoxDeviceHelper.purge();
+    await countryHelper.purge();
+    await groupHelper.purge();
+    await sigfoxDeviceHelper.purge();
 })
 
 

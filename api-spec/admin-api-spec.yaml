@@ -230,6 +230,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'    
     
+   
+  /getDevicesInCountry:
+    get:
+      x-swagger-router-controller: deviceGroupController
+      operationId: getDevicesInCountry
+      tags:
+        - Device Group
+      description: Returns the IDs of the devices for a specified country code
+      parameters:
+        - name: countryCode
+          in: query
+          description: The country code to search for
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'     
+   
+   
     
   /addOrUpdateDeviceGroup:
     post:

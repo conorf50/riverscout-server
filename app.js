@@ -40,7 +40,8 @@ var options_object = {
 oasTools.configure(options_object);
 
 oasTools.initialize(oasDoc, app, function() {
-  http.createServer(app).listen(serverPort, function() {
+  http.createServer(app).listen(serverPort, function() {   
+
     console.log("App running at http://localhost:" + serverPort);
     console.log("________________________________________________________________");
     if (options_object.docs !== false) {
@@ -48,12 +49,6 @@ oasTools.initialize(oasDoc, app, function() {
       console.log("________________________________________________________________");
     }
   });
-    //Set up default mongoose connection - taken from Mozilla tutorial
-    //var mongoDB = 'mongodb://127.0.0.1/riverscout'; // localhost only for development
-    
-    
-    //var mongoDB = 'mongodb://riverscout:riverscout@10.10.1.11/riverscout_db'; use other VM as a database
-
 
     mongoose.connect('mongodb://riverscout:riverscout@10.10.1.10/riverscout',{ useNewUrlParser: true }); // set up the connection with the above IP address ,user and password  
     // Get Mongoose to use the global promise library
@@ -67,7 +62,7 @@ oasTools.initialize(oasDoc, app, function() {
 
 app.get('/info', function(req, res) {
   res.send({
-    info: "This API was generated using the oas-generator NPM module (https://github.com/isa-group/oas-generator)"
+    info: "Welcome to the Riverscout API! This API was generated using the oas-generator NPM module (https://github.com/isa-group/oas-generator)"
     //name: oasDoc.info.title
   });
 });

@@ -19,7 +19,7 @@ describe('Deleting Groups', function () {
     describe('Get a group ID to delete', function () {
         it('should get all groups', function (done) {
             request(app).get('/api/getAllDeviceGroups?countryCode=IE')
-            .end(function (err, res) {
+                .end(function (err, res) {
                     expect(res.statusCode).to.equal(200);
                     groupID = res.body[0]._id;
                     console.log("Test group ID = " + groupID)

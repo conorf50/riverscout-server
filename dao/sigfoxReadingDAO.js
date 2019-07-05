@@ -11,6 +11,7 @@ db.createUser({
 */
 
 var mongoose = require('mongoose');
+var moment = require('moment')
 // import all of the dependencies (schemas)
 var sigfoxDataSchema = require('../schemas/sigfoxDataSchema')
 
@@ -22,76 +23,81 @@ mongoose.set('debug', true);
 
 var sigfoxDAO = {} // do this so we can use the same name for module.exports while adding functions
 // new functions will be accessed by caling DAO.<newFunc>
-/*
-  deviceUID : {type: mongoose.Types.ObjectId, ref: 'deviceModel', required : true}, // name of the model we want to reference
-  rawHexData: String, // store the raw data for cases where data has been incorrectly mapped
-  waterTemp: mongoose.Types.Decimal128,
-  timestamp: Date,
-  waterLevel: mongoose.Types.Decimal128
-*/
+
 // sigfoxID, momentTs, rawHexString
-sigfoxDAO.saveDeviceData = function(sigfoxID,momentTs, rawHexData, waterLevel, waterTemp) {
+sigfoxDAO.saveDeviceData = function (sigfoxID, momentTs, rawHexData, waterLevel, waterTemp) {
     return new sigfoxDataSchema.sigfox_device_measurement({
-                deviceUID : sigfoxID, // todo fix this
-                rawHexData : rawHexData,
-                waterLevel: waterLevel,
-                waterTemp: waterTemp,
-                timestamp : momentTs
-            })
-    .save()
-    .then(function(y) {
-        return y
+        deviceUID: sigfoxID, // todo fix this
+        rawHexData: rawHexData,
+        waterLevel: waterLevel,
+        waterTemp: waterTemp,
+        timestamp: momentTs
     })
-    .catch(function(err) {
-        return err
-    })
+        .save()
+        .then(function (y) {
+            return y
+        })
+        .catch(function (err) {
+            return err
+        })
 }
 
 
-sigfoxDAO.getDeviceData = function(deviceUID, timestampGt, timestampLt) {
-return sigfoxDataSchema.sigfox_device_measurement.find({
-                deviceUID : deviceUID,
-                "timestamp":{
-                    $gt: timestampGt,
-                    $lt: timestampLt
+sigfoxDAO.getDeviceData = function (deviceUID, timestampGt, timestampLt) {
+
+    /*
+     return measurements for the selected device that lie between 'timestampGt' and 'timestampLt' 
+     and contain the deviceUID
+
+    */
+    return sigfoxDataSchema.sigfox_device_measurement.aggregate([{
+        $match: {
+            $and: [
+                { "deviceUID": deviceUID },
+                {
+                    "timestamp": {
+                        $gt: Date(timestampGt),
+                        $lt: Date(timestampLt)
+                    }
                 }
-            })
-    .then(function(data) {
-        console.log(data)
-        return data ;
-    })
-    .catch(err => {
-        return err
-    })
+            ]
+        }
+    }])
+
+
+
+
 }
 
 
-sigfoxDAO.deleteOneReading = function(readingID){
+sigfoxDAO.deleteOneReading = function (readingID) {
+    // delete one reading matching the ID specified
     return sigfoxDataSchema.sigfox_device_measurement.deleteOne({
         _id: readingID
     })
-    .then(function(z){
-        return z
-    })
-    .catch(function(err){
-        return(
-            err.message
-        )
-    })
+        .then(function (z) {
+            return z
+        })
+        .catch(function (err) {
+            return (
+                err.message
+            )
+        })
 }
 
-sigfoxDAO.deleteAllReadinga = function(deviceID){
+sigfoxDAO.deleteAllReadings = function (deviceID) {
+
     return sigfoxDataSchema.sigfox_device_measurement.deleteMany({
         deviceUID: deviceID
     })
-    .then(function(z){
-        return z
-    })
-    .catch(function(err){
-        return(
-            err.message
-        )
-    })
+        .then(function (z) {
+            return z
+        })
+        .catch(function (err) {
+            return (
+                err.message
+            )
+        })
 }
 
 module.exports = sigfoxDAO;

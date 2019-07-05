@@ -36,14 +36,14 @@ describe('Get different device groups ', function () {
           expect(res.body[2].countryCode).to.equal("IE");
 
           // check the locations of each of the groups
-          expect(res.body[0].groupLat.$numberDecimal).to.equal("52.4542");
-          expect(res.body[0].groupLong.$numberDecimal).to.equal("-7.3453");
+          expect(res.body[0].groupLat).to.equal(52.4542);
+          expect(res.body[0].groupLong).to.equal(-7.3453);
 
-          expect(res.body[1].groupLat.$numberDecimal).to.equal("53.9932");
-          expect(res.body[1].groupLong.$numberDecimal).to.equal("-7.6453");
+          expect(res.body[1].groupLat).to.equal(53.9932);
+          expect(res.body[1].groupLong).to.equal(-7.6453);
 
-          expect(res.body[2].groupLat.$numberDecimal).to.equal("51.4541");
-          expect(res.body[2].groupLong.$numberDecimal).to.equal("-6.9989");
+          expect(res.body[2].groupLat).to.equal(51.4541);
+          expect(res.body[2].groupLong).to.equal(-6.9989);
 
           //console.log("RES = " + util.inspect(res.body))
           done();
@@ -65,11 +65,11 @@ describe('Get different device groups ', function () {
           expect(res.body[1].countryCode).to.equal("UK");
 
           // check the locations of each of the groups
-          expect(res.body[0].groupLat.$numberDecimal).to.equal("69.6969");
-          expect(res.body[0].groupLong.$numberDecimal).to.equal("-4.2002");
+          expect(res.body[0].groupLat).to.equal(69.6969);
+          expect(res.body[0].groupLong).to.equal(-4.2002);
 
-          expect(res.body[1].groupLat.$numberDecimal).to.equal("57.4322");
-          expect(res.body[1].groupLong.$numberDecimal).to.equal("-9.1002");
+          expect(res.body[1].groupLat).to.equal(57.4322);
+          expect(res.body[1].groupLong).to.equal(-9.1002);
 
           //console.log("RES for UK= " + util.inspect(res.body))
           done();
@@ -91,8 +91,8 @@ describe('Get different device groups ', function () {
           expect(res.body[0].countryCode).to.equal("FR");
 
           // check the locations of each of the groups
-          expect(res.body[0].groupLat.$numberDecimal).to.equal("45.5232");
-          expect(res.body[0].groupLong.$numberDecimal).to.equal("1.3453");
+          expect(res.body[0].groupLat).to.equal(45.5232);
+          expect(res.body[0].groupLong).to.equal(1.3453);
 
           done();
         });

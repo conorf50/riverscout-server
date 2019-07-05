@@ -18,7 +18,7 @@ const DeviceTypeSchema = new Schema({
     deviceTypeName: String,  // eg: "River Sensor V1"
     deviceType: {
         type: String,
-        //enum: ['River', 'Air'], // commented out because it didn't work
+        //enum: ['River', 'Air'], // not currently working
         default: 'River'
     },
     deviceTypeDescription: String  // List the characteristics of this device type

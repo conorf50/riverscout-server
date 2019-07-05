@@ -11,7 +11,6 @@ var sigfoxDAO = require('../dao/sigfoxReadingDAO');
 
 // date library that allows relative dates like .fromNow, subtract X days and more
 var moment = require('moment');
-var util = require("util")
 
 
 function addSigfoxReading(req, res) {
@@ -28,13 +27,14 @@ function addSigfoxReading(req, res) {
 
   // create a new Date from the converted UNIX timestamp
   var momentTs = new moment.unix(tsInt).utc(); // important since we are recieving UTC unix timstamps from Sigfox
-  //console.log("integer timestamp = " + tsInt)
-  //console.log("converted moment = " + momentTs)
-  // save the data
+
+  // send the hex string to the decompression function
   var convertedData = parseSigfoxData(rawHexString)
+  // values come back 
   var waterLevel = convertedData.waterLevel
   var waterTemp = convertedData.waterTemp
 
+  //  pass the data to the DAO so we can save it 
   sigfoxDAO.saveDeviceData(sigfoxID, momentTs, rawHexString, waterLevel, waterTemp)
     .then(function (x) {
       res.json(x);
@@ -48,6 +48,7 @@ function addSigfoxReading(req, res) {
 
 function getSigfoxReadings(req, res) {
 
+  // this handles the requests for an individual device's data
   var input = req.swagger.params
   var deviceID = input.deviceID.value
   var timestampLt = input.timestampLt.value
@@ -84,7 +85,7 @@ function deleteAllSigfoxReadings(req, res, next) {
   var input = req.swagger.params
   var deviceID = input.deviceID.value
 
-  sigfoxDAO.deleteAllReadings(readingID)
+  sigfoxDAO.deleteAllReadings(deviceID)
     .then(x => {
       res.json(x)
     })
@@ -103,24 +104,23 @@ function parseSigfoxData(rawHexString) {
    first 8 characters. So we need to parse the first 8 characters and convert the value
    from hex to decimal
   */
-  let tempValHex = rawHexString.slice(0, 8);
-  console.log("TEMP-HEX" + tempValHex)
-  let waterHtValHex = rawHexString.slice(8);
-  console.log("LEVEL-HEX" + waterHtValHex)
+  let tempValHex = rawHexString.slice(0, 8); // slice the first 8 characters from index 0 to character 7
+  //console.log("TEMP-HEX" + tempValHex)
+  let waterHtValHex = rawHexString.slice(8); // slice from the  8th character until the end
+  //console.log("LEVEL-HEX" + waterHtValHex)
   let result = {
     // toFixed = specify how many decimal places are wanted eg: 4 = .xxxx, 6 = .xxxxxx
     // as specified in the deviceAttribute schema, we only need up to 4 decimal places
     // see: https://nodejs.org/api/buffer.html
     // read a float out of the first string, specifying little endian as the encoding
     waterTemp: Buffer.from(tempValHex, 'hex').readFloatLE(0).toFixed(4),
-    // the water level value comes in as an unsigned integer
+
+    // the water level value comes in as an unsigned integer, so we just read it as a uint
     waterLevel: Buffer.from(waterHtValHex, 'hex').readUInt8(0)
 
     // better encoding scheme that gives a wider range of values
-    // needs a code change on the device side to send the value as a 16 bit little endian int
+    // needs a code change on the device side to send the value as a little endian int
     //waterLevel: Buffer.from(waterHtValHex, 'hex').readInt16LE(0)
-
-
   };
   return result;
 }
