@@ -9,8 +9,6 @@ and handles operations for countries
 var mongoose = require('mongoose');
 // import all of the dependencies (schemas)
 var CountrySchema = require('../schemas/countrySchema')
-// require Bluebird instead of native Prommises
-var Promise = require('bluebird');
 // enable Mongoose's debig mode for easier problem solving
 // see https://stackoverflow.com/questions/18762264/log-all-queries-that-mongoose-fire-in-the-application
 mongoose.set('debug', true);

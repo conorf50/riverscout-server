@@ -5,6 +5,9 @@
   Author: Conor Farrell (+ others where noted)
   For an overview of the structure of this file, refer to controllers/countryController.js
   as the controllers all work in the same basic fashion.
+
+  This controller handles CRUD operations on device groups.
+
 */
 
 
@@ -35,7 +38,7 @@ function addDeviceGroup(req, res) {
     // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
     let input = req.swagger.params
     let countryCode = input.countryCode.value
-    console.log(`Country Code ${countryCode}`)
+    console.log(`Country Code ${countryCode}`)  // es6 template string
 
     groupDAO.findDeviceGroupByCode(countryCode)
     .then(x => {

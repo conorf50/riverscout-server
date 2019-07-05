@@ -45,25 +45,11 @@ sigfoxDAO.saveDeviceData = function (sigfoxID, momentTs, rawHexData, waterLevel,
 
 sigfoxDAO.getDeviceData = function (deviceUID, timestampGt, timestampLt) {
 
-    // find measurements for the selected device between 'timestampGt' and 'timestampLt'
+    /*
+     return measurements for the selected device that lie between 'timestampGt' and 'timestampLt' 
+     and contain the deviceUID
 
-    // return sigfoxDataSchema.sigfox_device_measurement.find({
-    //                 deviceUID : deviceUID,
-    // "timestamp":{
-    //     $gt: timestampGt, // greater than this date
-    //     $lt: timestampLt // less than this date
-    // }
-    //             })
-    //     .then(function(data) {
-    //         console.log(data)
-    //         return data ;
-    //     })
-    //     .catch(err => {
-    //         return err
-    //     })
-
-
-
+    */
     return sigfoxDataSchema.sigfox_device_measurement.aggregate([{
         $match: {
             $and: [

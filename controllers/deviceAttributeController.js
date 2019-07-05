@@ -4,6 +4,10 @@
   Author: Conor Farrell (+ others where noted)
   For an overview of the structure of this file, refer to controllers/countryController.js
   as the controllers all work in the same basic fashion.
+
+  This controller handles device 'attributes' like its information.
+
+
 */
 
 //'import' the DAO functions
