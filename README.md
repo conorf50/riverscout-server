@@ -161,13 +161,12 @@ To set up a Pycom SiPy to talk to Riverscout:
 * URL Pattern = ```http://<IPADDRESS>:8080/api/addSigfoxDeviceReading``` , where ```IPADDRESS``` is the IP address of your cloud instance.  
 * Use HTTP Method: ```POST```
 * Content type: ```application/json```
-* Body: ```{
-"rawHexString" : "{data}",
-"sigfoxID" : "{device}",
-"timestamp" : "{time}"
-}```
+* Body: ```{"rawHexString" : "{data}","sigfoxID" : "{device}","timestamp" : "{time}"}``` 
 
+Here is what the edit callback screen should look like.
+[![editcallback.png](https://i.postimg.cc/1zMBnpYh/editcallback.png)](https://postimg.cc/KKkBCg2J)
  
+Click OK to save the callback.  
 ### API Docs
 The Riverscout API, as explained in the introduction, is structured as follows:
 1. The user selects a country using a 'country code'. The list of codes can be found by calling the ```/getAllCountries``` route.
@@ -182,12 +181,14 @@ Also the grouping allows large dots to be shown on a country map when it is zoom
 
 When a large area is selected, the user only sees the groups (black markers)
 
-
-INSERT PHOTO
+[![groups.png](https://i.postimg.cc/524FHZcy/groups.png)](https://postimg.cc/4m03q2xR)
 
 When the map is zoomed in on a specific area containing groups, the map now shows the devices in those groups (red markers)
 
-  *Map data from [OpenStreetMap](https://www.openstreetmap.org)*
+
+[![zoomed.png](https://i.postimg.cc/J0QzMzzq/zoomed.png)](https://postimg.cc/ZvCSLZ3B)
+
+*Map image from [OpenStreetMap](https://www.openstreetmap.org)*
 
 API Routes
 
