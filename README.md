@@ -36,6 +36,9 @@ This README provides info on what Riverscout is, it’s architecture and how to 
         - [POST: /addOrUpdateCountry](#POST-addOrUpdateCountry)
         - [GET: /getAllCountries](#GET-getAllCountries)
         - [DELETE: /deleteCountry](#DELETE-deleteCountry)
+    - [Data Compression Scheme](#Data-Compression-Scheme)
+      - [Code - device side](#Code---device-side)
+      - [Code - server side](#Code---server-side)
 
 ### What Is Riverscout?
 
@@ -382,3 +385,28 @@ Deletes the selected country
 | Value | Type | Description |
 | --- | --- | --- |
 | countryID | ```String``` | Database ID of the country to remove |
+
+### Data Compression Scheme
+Due to the constrained nature of LPWAN technologies, there has to be a method of compressing data generated on the device before tramsmitting it to the backend. Riverscout uses a scheme derived from [this example](https://dzone.com/articles/build-an-end-to-end-sigfox-gps-tracker-using-wia-a) provided by Austin Spivey/Wia.io 
+
+Both parts are as follows:
+#### Code - device side
+The Micropython code for compressing the data is below:
+
+```struct.pack('f',float(waterTemp)) + bytes([waterLevel])```
+
+This converts the float value (with 2 decimal places) into a 32 bit IEEE 754 value (which is the binary representation). The float is now represented with 4 hexadecimal characters (8 bits) which is combined with the temperature value and sent to Sigfox.
+
+Specifying ‘f’ as the first argument in struct.pack tells Python to store the value as a 
+C float  The values are stored as little endian (least significant bit first) as the ESP32 is a little-endian architecture (as reported by ```sys.byteorder```)
+
+
+#### Code - server side
+The hex string is passed from Sigfox into the ```‘parseSigfoxData’``` decompression function. It takes the raw string, slices the first 8 bits into one variable called ‘waterTemp’ and slices the rest of the buffer into another variable called ‘waterLevel’
+To parse the waterTemp variable, use the ```readFloatLE()```  NodeJS function specifying 0 as the offset. We need to specify little endian as the encoding because the values were originally encoded that way.
+
+To parse the ‘waterLevel’ value, we can use the ```readUInt8()```  function.
+
+The full code is available to view in ```controllers/sigfoxReadingController.js```.
+
+ 
