@@ -61,7 +61,7 @@ The project focused on two main areas, the device 'gauge' and a backend server p
 
 Riverscout uses a [Pycom SiPy](https://pycom.io/product/sipy/) with a [US-100 ultrasonic sensor](https://www.adafruit.com/product/4019) and a DS18B20 temperature sensor. The SiPy is a internet enabled microcontroller that connects to the Sigfox network and can be programmed using a specialized variant of Python called MicroPython.
 
-- For the device code, please visit [the device repo]():
+- For the device code, please visit [the device repo](https://github.com/conorf50/riverscout-gauge):
   
 
 
